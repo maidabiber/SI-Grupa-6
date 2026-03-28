@@ -25,14 +25,15 @@ Rješavanje ovih problema direktno utiče na profesionalizaciju amaterskog sport
 4.  **Integritet i fair-play:** Kada sistem automatski računa bodove i gol-razliku, eliminiše se mogućnost ljudske greške i što gradi povjerenje među timovima.
 
 Ovaj sistem rješava navedene probleme tako što omogućava centralizovan pristup svim informacijama na jednom mjestu. Sistem nudi platformu za automatsko generisanje tabela i uvid u raspored, gdje se nakon unosa rezultata stanje na tabeli i statistika igrača ažuriraju trenutno i bez greške. Na taj način, vlasnici terena dobijaju alat za bolju popunjenost kapaciteta, dok igrači i gledaoci imaju uvid u svaku promjenu, čime se stvara moderna i transparentna sportska zajednica.
+
 ---
 
 ## Ciljni korisnici
 
-### 1. Organizatori liga i turnira
-### 2. Igrači 
-### 3. Gledaoci i lokalna zajednica, ljubitelji sporta
-### 4. Vlasnici i menadžeri sportskih objekata
+1. Organizatori liga i turnira
+2. Igrači 
+3. Gledaoci i lokalna zajednica, ljubitelji sporta
+4. Vlasnici i menadžeri sportskih objekata
 
 ---
 
