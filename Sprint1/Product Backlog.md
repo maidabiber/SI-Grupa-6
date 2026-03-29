@@ -60,4 +60,4 @@ Ovaj dokument sadrži listu stavki koje je potrebno završiti u okviru projekta.
 | PB-38 | Testiranje sistema | Pisanje i izvršavanje unit testova za ključne funkcionalnosti | Technical Task | Visok | L | To-Do | Sprint 11 | - |
 
 
-> **Napomena:** Od Sprinta 5 (početak implementacije) backlog se kontinuirano revidira i ažurira. Za svaki sprint vodi se zasebna Sprint Backlog tabela koja detaljnije prati napredak, zaduženja i status stavki tokom tog sprinta.
+> **Napomena:** Ovaj dokument predstavlja primarni izvor zahtjeva. Počevši od Sprinta 5, tim će za svaki razvojni ciklus kreirati specifičan Sprint Backlog koji će sadržavati tehničke pod-zadatke (sub-tasks) i precizna zaduženja članova tima. Product Backlog će se redovno revidirati.
