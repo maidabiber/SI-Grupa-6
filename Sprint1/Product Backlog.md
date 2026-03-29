@@ -51,12 +51,13 @@ Ovaj dokument sadrži listu stavki koje je potrebno završiti u okviru projekta.
 | PB-29 | Implementirati unos rezultata | Odgovorni unosi rezultate odigranih utakmica | Feature | Visok | S | To-Do | Sprint 8 | - |
 | PB-30 | Implementirati automatsku tabelu | Nakon unosa rezultata sistem automatski ažurira tabelu i bodove | Feature | Visok | L | To-Do | Sprint 8 | - |
 | PB-31 | Implementirati upravljanje objektima | Vlasnici unose i ažuriraju dostupnost svojih terena i dvorana | Feature | Srednji | M | To-Do | Sprint 9 | - |
-| PB-32 | Implementirati rezervaciju termina | Korisnik šalje zahtjev za rezervaciju, vlasnik odobrava ili odbija. | Feature | Srednji | M | To-Do | Sprint 9 | - |
-| PB-33 | Validacija podataka | Sprečavanje unosa netačnih podataka u svim formama sistema | Technical Task | Visok | M | To-Do | Sprint 9 | - |
-| PB-34 | Implementirati sistem obavještenja | Automatsko slanje obavještenja o promjenama rasporeda i rezultatima | Feature | Srednji | L | To-Do | Sprint 10 | Email ili in-app notifikacije |
-| PB-35 | Responzivni UI dizajn | Optimizacija fronteda za mobilne uređaje i različite veličine ekrana | Technical Task | Nizak | L | To-Do | Sprint 10 | Web-first pristup |
-| PB-36 | PDF izvoz tabela i rasporeda | Omogućiti korisnicima izvoz tabela, rasporeda i statistika u PDF format | Feature | Nizak | M | To-Do | Sprint 11 | Nije prioritetno za MVP |
-| PB-37 | Testiranje sistema | Pisanje i izvršavanje unit testova za ključne funkcionalnosti | Technical Task | Visok | L | To-Do | Sprint 11 | - |
+| PB-32 | Implementirati rezervaciju termina | Omogućiti korisniku da pošalje zahtjev za rezervaciju termina | Feature | Srednji | M | To-Do | Sprint 9 | - |
+| PB-33 | Implementirati proces potvrde termina | Omogućiti vlasniku objekta da odobri ili odbije zahtjev za rezervaciju, uz automatsku promjenu statusa termina | Feature | Srednji | L | To-Do | Sprint 9 | - |
+| PB-34 | Validacija podataka | Sprečavanje unosa netačnih podataka u svim formama sistema | Technical Task | Visok | M | To-Do | Sprint 9 | - |
+| PB-35 | Implementirati sistem obavještenja | Automatsko slanje obavještenja o promjenama rasporeda i rezultatima | Feature | Srednji | L | To-Do | Sprint 10 | Email ili in-app notifikacije |
+| PB-36| Responzivni UI dizajn | Optimizacija fronteda za mobilne uređaje i različite veličine ekrana | Technical Task | Nizak | L | To-Do | Sprint 10 | Web-first pristup |
+| PB-37| PDF izvoz tabela i rasporeda | Omogućiti korisnicima izvoz tabela, rasporeda i statistika u PDF format | Feature | Nizak | M | To-Do | Sprint 11 | Nije prioritetno za MVP |
+| PB-38 | Testiranje sistema | Pisanje i izvršavanje unit testova za ključne funkcionalnosti | Technical Task | Visok | L | To-Do | Sprint 11 | - |
 
 
 > **Napomena:** Od Sprinta 5 (početak implementacije) backlog se kontinuirano revidira i ažurira. Za svaki sprint vodi se zasebna Sprint Backlog tabela koja detaljnije prati napredak, zaduženja i status stavki tokom tog sprinta.
