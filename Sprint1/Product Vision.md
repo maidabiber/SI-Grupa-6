@@ -66,7 +66,6 @@ Sistem služi kao jedinstvena platforma za sve učesnike:
 - Online plaćanje – Plaćanje kotizacija, članarina i zakupa objekata nije podržano; finansijske transakcije se obavljaju van sistema
 - Detaljna statistika igrača: (npr. broj žutih kartona, asistencije - za sada samo rezultat tima)
 - Višejezičnost
-- Napredni izvještaji i PDF izvoz – Izvoz tabela, rasporeda ili statistika u PDF format nije planiran u MVP-u
 
 ---
 

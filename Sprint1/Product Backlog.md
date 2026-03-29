@@ -1,206 +1,61 @@
-# Product Backlog – SportManager
+# Product Backlog - Sistem za upravljanje sportskim terminima i ligama
+
+Ovaj dokument sadrži listu stavki koje je potrebno završiti u okviru projekta. Backlog je živi dokument i mijenja se tokom trajanja projekta.
 
 ---
 
-## Osnovna autentifikacija i korisnici
+### Legenda
 
-- **PB-01 – Registracija korisnika**
-  - Korisnik može kreirati nalog unosom osnovnih podataka (ime, email, lozinka).
-  - Tip: Feature
-  - Prioritet: Visok
+**Prioritet:** Visok / Srednji / Nizak
 
----
+**Procjena složenosti:** S (1-2 dana) / M (3-5 dana) / L (1-2 sedmice)
 
-- **PB-02 – Prijava i odjava korisnika**
-  - Autentifikacija korisnika putem emaila i lozinke, te odjava sa sistema.
-  - Tip: Feature
-  - Prioritet: Visok
+**Status:** To-Do / In Progress / Testing / Done
+
+**Tipovi stavki:** Feature / Bug / Technical Task / Research / Documentation
+
+**ID konvencija:** PB-[broj]
 
 ---
 
-- **PB-03 – Upravljanje ulogama**
-  - Sistem podržava uloge (gledalac, organizator, administrator, vlasnik objekta, igrač itd.), pri čemu svaka uloga ima različite dozvole i pristup funkcionalnostima.
-  - Tip: Feature
-  - Prioritet: Visok
-  - Napomena: Administrator se kreira u bazi pri inicijalnom pokretanju sistema.
-
----
-
-- **PB-04 – Sistem permisija i kontrole pristupa**
-  - Tehnička implementacija dozvola za svaku ulogu – korisnik može pristupiti samo onim funkcionalnostima koje njegova uloga dozvoljava.
-  - Tip: Technical Task
-  - Prioritet: Visok
-  - Napomena: Osnova za sve ostale funkcionalnosti sistema.
-
----
-
-- **PB-05 – Administratorski panel za upravljanje korisnicima**
-  - Administrator može pregledati sve korisnike, odobriti ili odbiti zahtjeve, te deaktivirati naloge.
-  - Tip: Feature
-  - Prioritet: Visok
-
----
-
-- **PB-06 – Korisnički profil**
-  - Korisnik može pregledati i uređivati svoje lične podatke.
-  - Tip: Feature
-  - Prioritet: Srednji
-
----
-
-- **PB-07 – Oporavak lozinke**
-  - Korisnik može resetovati lozinku putem email linka u slučaju da je zaboravi.
-  - Tip: Feature
-  - Prioritet: Srednji
-  - Napomena: Nije kritično za MVP, ali poboljšava korisničko iskustvo.
-
----
-
-## Takmičarska logika
-
-- **PB-08 – Upravljanje kategorijama sportova**
-  - Administrator definiše i uređuje kategorije sportova dostupnih u sistemu (npr. fudbal, košarka, odbojka).
-  - Tip: Feature
-  - Prioritet: Visok
-
----
-
-- **PB-09 – Kreiranje lige**
-  - Organizator može kreirati novu ligu i definisati njene osnovne parametre (naziv, sport, sezona).
-  - Tip: Feature
-  - Prioritet: Visok
-
----
-
-- **PB-10 – Upravljanje timovima**
-  - Organizator može dodavati, uređivati i brisati timove unutar lige.
-  - Tip: Feature
-  - Prioritet: Visok
-
----
-
-- **PB-11 – Registracija igrača u tim**
-  - Igrači se mogu pridružiti timu ili biti dodani od strane organizatora ili kapetena ekipe.
-  - Tip: Feature
-  - Prioritet: Visok
-
----
-
-- **PB-12 – Kreiranje rasporeda utakmica**
-  - Organizator kreira raspored utakmica s datumom, vremenom, lokacijom i parovima ekipa.
-  - Tip: Feature
-  - Prioritet: Visok
-
----
-
-- **PB-13 – Pregled rasporeda**
-  - Svi korisnici mogu pregledati raspored predstojećih utakmica s mogućnošću filtriranja po sportu, ligi, timu ili datumu.
-  - Tip: Feature
-  - Prioritet: Visok
-
----
-
-- **PB-14 – Unos rezultata utakmica**
-  - Organizator unosi rezultate odigranih utakmica (broj golova/poena za svaki tim).
-  - Tip: Feature
-  - Prioritet: Visok
-
----
-
-- **PB-15 – Automatsko generisanje tabele**
-  - Nakon unosa rezultata sistem automatski ažurira tabelu, bodove i gol-razliku.
-  - Tip: Feature
-  - Prioritet: Visok
-  - Napomena: Potrebno definisati pravila bodovanja za svaku sportsku kategoriju.
----
-
-- **PB-16 – Pregled historije rezultata**
-  - Korisnici mogu pregledati historiju svih odigranih utakmica i rezultata tokom sezone.
-  - Tip: Feature
-  - Prioritet: Srednji
-
----
-
-- **PB-17 – Osnovna statistika tima**
-  - Prikaz osnovnih statistika tima: broj utakmica, pobjeda, poraza, remija i golova.
-  - Tip: Feature
-  - Prioritet: Srednji
-  - Napomena: Napredna statistika igrača nije u MVP-u.
-
----
-
-## Upravljanje terminima
-
-- **PB-18 – Upravljanje sportskim objektima**
-  - Vlasnici objekata mogu unositi i ažurirati dostupnost svojih terena, dvorana i sala u sistemu.
-  - Tip: Feature
-  - Prioritet: Visok
-  - Napomena: Potreban je unos vlasnika o zauzetosti ukoliko rezervacija nije izvršena putem sistema.
-
----
-
-- **PB-19 – Pregled slobodnih termina**
-  - Svi korisnici mogu pregledati slobodne i zauzete termine sportskih objekata bez direktnog kontakta s vlasnikom.
-  - Tip: Feature
-  - Prioritet: Srednji
-
----
-
-- **PB-20 – Rezervacija termina**
-  - Može se poslati zahtjev za rezervaciju slobodnog termina, a vlasnik objekta ga odobrava ili odbija.
-  - Tip: Feature
-  - Prioritet: Srednji
-  - Napomena: Nakon odobrenja, termin se automatski označava kao zauzet.
-
----
-
-## Tehnički zadaci
-
-- **PB-21 – Dizajn baze podataka**
-  - Definisanje ER dijagrama i relacija između entiteta sistema.
-  - Tip: Technical Task
-  - Prioritet: Visok
-  - Napomena: Mora biti urađeno prije početka implementacije.
-
----
-
-- **PB-22 – Validacija podataka**
-  - Sprečavanje unosa netačnih ili nepotpunih podataka (npr. pogrešan format datuma, negativan rezultat).
-  - Tip: Technical Task
-  - Prioritet: Visok
-
----
-
-- **PB-23 – Sigurnosni protokoli**
-  - Zaštita ruta, enkripcija lozinki i zaštita privatnih podataka korisnika.
-  - Tip: Technical Task
-  - Prioritet: Visok
-
----
-
-- **PB-24 – Sistem obavještenja**
-  - Automatsko slanje obavještenja korisnicima o promjenama rasporeda, otkazivanjima i novim rezultatima.
-  - Tip: Feature
-  - Prioritet: Srednji
-  - Napomena: Email ili in-app notifikacije.
-
----
-
-## Završni procesi
-
-- **PB-25 – Testiranje sistema**
-  - Pisanje i izvršavanje unit i integracionih testova za ključne funkcionalnosti sistema.
-  - Tip: Technical Task
-  - Prioritet: Srednji
-
----
-
-- **PB-26 – Dokumentacija sistema**
-  - Izrada tehničke i korisničke dokumentacije za sve ključne funkcionalnosti platforme.
-  - Tip: Documentation
-  - Prioritet: Nizak
-
----
+| ID | Naziv stavke | Kratak opis | Tip | Prioritet | Procjena | Status | Sprint | Napomena |
+|----|-------------|-------------|-----|-----------|----------|--------|--------|----------|
+| PB-01 | Definisati Team Charter | Izrada dokumenta koji definiše članove tima, uloge, pravila rada i komunikacije | Documentation | Visok | S | Done | Sprint 1 | - |
+| PB-02 | Definisati Product Vision | Izrada dokumenta koji opisuje problem, ciljne korisnike, vrijednost sistema i MVP scope | Documentation | Visok | M | Done | Sprint 1 | - |
+| PB-03 | Definisati Stakeholder Map | Identifikacija i mapiranje svih zainteresovanih strana, njihovih interesa i uticaja na sistem | Research | Visok | S | Done | Sprint 1 | - |
+| PB-04 | Definisati početni Product Backlog | Izrada početne liste stavki s opisima, tipovima i prioritetima | Documentation | Visok | M | Done | Sprint 1 | Backlog se mijenja tokom projekta |
+| PB-05 | Izraditi User Stories | Pisanje User Stories za sve prioritetne funkcionalnosti sistema, iz perspektive korisnika | Documentation | Visok | S | To-Do | Sprint 2 | Format: Kao [uloga], želim [akcija], kako bih [cilj] |
+| PB-06 | Definisati Acceptance Criteria | Za svaku user story definisati jasne kriterije prihvatanja | Documentation | Visok | S | To-Do | Sprint 2 | Kriteriji moraju biti provjerljivi i mjerljivi  |
+| PB-07 | Prioritizacija backlog stavki | Rangiranje stavki prema važnosti za MVP i poslovnu vrijednost | Research | Visok | S | To-Do | Sprint 2 | - |
+| PB-08 | Definisati početne NFR zahtjeve | Izrada početne liste nefunkcionalnih zahtjeva (performanse, sigurnost, skalabilnost) | Documentation | Visok | S | To-Do | Sprint 2 | - |
+| PB-09 | Izraditi Risk Register | Identifikacija i procjena rizika projekta | Documentation | Visok | M | To-Do | Sprint 3 | - |
+| PB-10 | Izraditi Domain Model | Modeliranje ključnih entiteta sistema i njihovih međusobnih odnosa | Research | Visok | M | To-Do | Sprint 3 | - |
+| PB-11 | Izraditi Use Case Model | Dijagrami slučajeva upotrebe  za ključne funkcionalnosti sistema | Documentation | Visok | M | To-Do | Sprint 3 | - |
+| PB-12 | Izraditi Architecture Overview | Definisanje osnovnog arhitektonskog pravca sistema (tehnologije, slojevi, komunikacija) | Technical Task | Visok | L | To-Do | Sprint 3 | Arhitektura mora proizlaziti iz zahtjeva |
+| PB-13 | Definisati Test Strategy | Izrada strategije testiranja sistema (šta, kako i kada se testira) | Documentation | Visok | M | To-Do | Sprint 3 | - |
+| ID | Naziv stavke | Kratak opis | Tip | Prioritet | Procjena | Status | Sprint | Napomena |
+|----|-------------|-------------|-----|-----------|----------|--------|--------|----------|
+| PB-14 | Definisati Definition of Done | Izrada dokumenta koji definiše kada se stavka smatra završenom | Documentation | Visok | S | To-Do | Sprint 4 | - |
+| PB-15 | Izraditi Initial Release Plan | Plan izdavanja verzija sistema s okvirnim rasporedom funkcionalnosti po releasima | Documentation | Visok | M | To-Do | Sprint 4 | - |
+| PB-16 | Postaviti tehnički skeleton | Kreiranje osnovne strukture projekta (folderi, konfiguracija, osnovna arhitektura) | Technical Task | Visok | L | To-Do | Sprint 4 | - |
+| PB-17 | Setup razvojnog okruženja | Postavljanje razvojnog i produkcijskog servera te automatizacija objave (CI/CD) | Technical Task | Visok | M | To-Do | Sprint 4 | - |
+| PB-18 | Dizajn baze podataka | Definisanje ER dijagrama i relacija između entiteta sistema | Technical Task | Visok | L | To-Do | Sprint 4 | Mora biti urađeno prije početka implementacije|
+| PB-19 | Uspostaviti AI Usage Log i Decision Log| Kreirati Decision log dokument koji se koristi za evidentiranje važnih projektnih odluka, kao i AI Usage Log dokument u kojem se evidentira upotreba AI alata | Documentation | Visok | S | To-Do | Sprint 5 | - |
+| PB-20 | Implementirati registraciju korisnika | Korisnik može kreirati nalog unosom osnovnih podataka (ime, email, lozinka). | Feature | Visok | M | To-Do | Sprint 5 | - |
+| PB-21 | Implementirati prijavu i odjavu | Autentifikacija korisnika putem emaila i lozinke, te odjava sa sistema. | Feature | Visok | S | To-Do | Sprint 5 | - |
+| PB-22 | Implementirati sistem permisija | Tehnička implementacija dozvola za svaku ulogu korisnika. | Technical Task | Visok | L | To-Do | Sprint 5 | Osnova za sve ostale funkcionalnosti. |
+| PB-23 | Sprint Review Summary | Izrada sažetka sprint reviewa s pregledom urađenog i planiranog | Documentation | Visok | S | To-Do | Sprint 5 | Od Sprinta 5 pa nadalje koristit će se |
+| PB-24 | Sigurnosni protokoli | Zaštita ruta, enkripcija lozinki i zaštita privatnih podataka. | Technical Task | Visok | M | To-Do | Sprint 6 | - |
+| PB-25 | Implementirati upravljanje ligama, timovima kao i prijavu ekipa | Omogućiti kreiranje liga i timova u odnosu na prethodno definisane permisije | Feature | Visok | L | To-Do | Sprint 6 | - |
+| PB- 26 | Implementirati kreiranje rasporeda | Omogućiti organizatoru da kreira raspored, unese rezultate, izraditi sistem bodovanja, automatsko ažuriranje tabela | Feature | Visok | L | To-Do | Sprint 7 | - |
+| PB-27 | Implementirati pregled rasporeda | Svi korisnici mogu pregledati raspored s mogućnošću filtriranja. | Feature | Visok | S | To-Do | Sprint 7 | - |
+| PB-28 | Implementirati upravljanje objektima | Vlasnici unose i ažuriraju dostupnost svojih terena i dvorana | Feature | Visok | M | To-Do | Sprint 8 | - |
+| PB-29 | Implementirati rezervaciju termina | Korisnik šalje zahtjev za rezervaciju, vlasnik odobrava ili odbija. | Feature | Srednji | M | To-Do | Sprint 8 | - |
+| PB-30 | Validacija podataka | Sprečavanje unosa netačnih podataka u svim formama sistema | Technical Task | Visok | M | To-Do | Sprint 8 | - |
+| PB-31 | Implementirati sistem obavještenja | Automatsko slanje obavještenja o promjenama rasporeda i rezultatima | Feature | Srednji | L | To-Do | Sprint 9 | Email ili in-app notifikacije |
+| PB-32 | Responzivni UI dizajn | Optimizacija fronteda za mobilne uređaje i različite veličine ekrana | Technical Task | Nizak | L | To-Do | Sprint 10 | Web-first pristup |
+| PB-33 | PDF izvoz tabela i rasporeda | Omogućiti korisnicima izvoz tabela, rasporeda i statistika u PDF format | Feature | Nizak | M | To-Do | Sprint 11 | Nije prioritetno za MVP |
+| PB-34 | Testiranje sistema | Pisanje i izvršavanje unit testova za ključne funkcionalnosti. | Technical Task | Visok | L | To-Do | Sprint 11 | - |
 
 
-
+> **Napomena:** Od Sprinta 5 (početak implementacije) backlog se kontinuirano revidira i ažurira. Za svaki sprint vodi se zasebna Sprint Backlog tabela koja detaljnije prati napredak, zaduženja i status stavki tokom tog sprinta. Ovaj dokument služi kao glavni pregled svih stavki i njihovog planiranog rasporeda.
