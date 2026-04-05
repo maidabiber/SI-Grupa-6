@@ -495,3 +495,278 @@ Dodatna sigurnost sistema.
 - Kada korisnik nije aktivan određeni vremenski period, tada se automatski odjavljuje  
 - Sistem mora upozoriti korisnika prije automatske odjave  
 - Nakon odjave, korisnik mora ponovo unijeti kredencijale  
+
+## 9. USER STORY – Zakazivanje termina utakmice
+
+**ID storyja:** US-09
+
+**Naziv storyja:** Zakazivanje termina utakmice
+
+**Opis:**
+Kao organizator liga, želim zakazati termin utakmice, kako bi timovi mogli imati unaprijed poznati termin utakmice.
+
+**Poslovna vrijednost:**
+- Omogućava efikasnu organizaciju utakmica
+- Smanjuje konflikte u rasporedu
+- Povećava zadovoljstvo timova zbog fleksibilnosti termina
+
+**Prioritet:** Visok
+
+**Pretpostavke:**
+- Organizator liga ima permisije da dodaje nove termine utakmica
+- Pri završetku user storya u sistemu se nalazi novi termin utakmice
+
+**Otvorena pitanja:**
+- Koliko detalja moraju unijeti organizatori liga pri zakazivanju termina
+- Da li će biti potrebna povratna informacija trenera nakon zakazivanja termina utakmice
+
+**Acceptance Criteria:**
+
+- Kada organizator liga ima pristup sistemu i unese podatke o terminu, ako su podaci validni, tada sistem mora sačuvati novi termin utakmice  
+- Kada organizator unese termin koji se preklapa sa postojećim, tada sistem ne smije dozvoliti unos i mora prikazati poruku o grešci  
+- Sistem mora omogućiti unos osnovnih podataka (datum, vrijeme, timovi, lokacija)  
+- Nakon uspješnog unosa, korisnik treba dobiti potvrdu da je termin uspješno zakazan  
+- Ako podaci nisu potpuni, sistem ne smije dozvoliti spremanje termina  
+
+---
+
+## 10. USER STORY – Evidencija utakmice
+
+**ID storyja:** US-10
+
+**Naziv storyja:** Evidencija utakmice
+
+**Opis:**
+Kao organizator liga, želim izvršiti evidenciju završene utakmice, kako bi korisnici mogli dobiti željene informacije o istim.
+
+**Poslovna vrijednost:**
+- Omogućava tačno praćenje rezultata utakmica
+- Povećava transparentnost informacija za sve korisnike
+- Omogućava kasniju analizu performansi timova
+
+**Prioritet:** Srednji
+
+**Pretpostavke:**
+- Organizator liga ima permisije da vrši evidenciju utakmica
+
+**Otvorena pitanja:**
+- Koje informacije mora sadržavati evidencija utakmice (rezultat, strijelci, kartoni)
+- Da li postoji unaprijed definisan template za unos podataka
+- Da li je moguće naknadno uređivati evidenciju utakmice
+
+**Veze:** US-09
+
+**Acceptance Criteria:**
+
+- Kada organizator unese podatke o završenoj utakmici, ako su podaci validni, tada sistem mora sačuvati evidenciju  
+- Sistem mora omogućiti unos rezultata i osnovnih informacija o utakmici  
+- Ako podaci nisu validni ili nedostaju, sistem ne smije dozvoliti spremanje  
+- Nakon unosa, korisnik treba dobiti potvrdu o uspješnoj evidenciji  
+- Sistem mora omogućiti kasniji pregled unesenih podataka  
+
+---
+
+## 10.1. USER STORY – Računanje bodova utakmice
+
+**ID storyja:** US-10.1
+
+**Naziv storyja:** Računanje bodova utakmice
+
+**Opis:**
+Kao organizator liga, želim unijeti bodove utakmice, kako bi sistem automatski izračunao rezultate.
+
+**Poslovna vrijednost:**
+- Omogućava prikaz tačnih rezultata u sistemu
+- Povećava pouzdanost podataka o utakmicama
+- Omogućava ažuriranje tabele i statistika
+
+**Prioritet:** Visok
+
+**Pretpostavke:**
+- Organizator će tačno i brzo unijeti sve bodove u realnom vremenu
+
+**Otvorena pitanja:**
+- Da li će postojati dodatna validacija unosa bodova organizatora
+
+**Veze:** US-10
+
+**Acceptance Criteria:**
+
+- Kada organizator unese bodove, ako su validni, tada sistem mora prikazati tačne rezultate  
+- Ako su bodovi negativni ili nelogični, sistem ne smije dozvoliti unos  
+- Nakon unosa bodova, sistem mora automatski ažurirati tabelu  
+- Korisnik treba dobiti potvrdu o uspješnom unosu bodova  
+- Sistem mora omogućiti unos bodova za obje ekipe 
+
+---
+
+## 11. USER STORY – Pregled stanja na tabeli termina (igrač)
+
+**ID storyja:** US-11
+
+**Naziv storyja:** Pregled stanja na tabeli termina
+
+**Opis:**
+Kao igrač, želim da vidim stanje rasporeda termina u tabeli, kako bih mogao uskladiti privatne obaveze.
+
+**Poslovna vrijednost:**
+- Omogućava transparentnost rasporeda
+- Povećava organizaciju igrača
+
+**Prioritet:** Srednji
+
+**Pretpostavke:**
+- Termini su jasno definisani i prikazani u sistemu
+- Individualni termini igrača su također dostupni korisniku u tabeli
+
+**Otvorena pitanja:**
+- Da li su odvojeno označeni individualni termini treninga?
+- Da li se informacije prikazuju u realnom vremenu?
+
+**Veze:** US-09
+
+**Acceptance Criteria:**
+
+- Kada igrač pristupi tabeli, sistem mora prikazati sve dostupne termine  
+- Ako postoje različiti tipovi termina, sistem treba jasno označiti individualne i grupne termine  
+- Sistem mora omogućiti pregled po datumu i vremenu  
+- Korisnik treba dobiti ažurne informacije o rasporedu  
+- Sistem ne smije prikazivati zastarjele ili netačne podatke  
+
+---
+
+## 12. USER STORY – Pregled tabele rezultata i bodova 
+
+**ID storyja:** US-12
+
+**Naziv storyja:** Pregled leaderboard-a timova
+
+**Opis:**
+Kao registrovani korisnik, želim da vidim tabelu rezultata i bodova svih timova, kako bih znao na kojem mjestu se svaki tim nalazi.
+
+**Poslovna vrijednost:**
+- Omogućava transparentan uvid u rangiranje timova
+- Motivira igrače i navijače kroz praćenje napretka i konkurencije
+
+**Prioritet:** Srednji
+
+**Pretpostavke:**
+- Rezultati utakmica se redovno unose u sistem
+- Bodovi se automatski izračunavaju na osnovu rezultata
+- Svi korisnici imaju pristup leaderboard tabeli
+
+**Otvorena pitanja:**
+- Da li se tabela ažurira u realnom vremenu nakon unosa rezultata?
+- Da li postoji mogućnost filtriranja ili sortiranja tabele (npr. po broju bodova, gol razlici)?
+
+**Veze:** US-10, US-10.1
+
+**Acceptance Criteria:**
+
+- Kada korisnik pristupi tabeli, sistem mora prikazati sve timove sa njihovim bodovima i rangom  
+- Sistem mora prikazati tačne i ažurne podatke na osnovu unesenih rezultata utakmica  
+- Kada se unesu novi rezultati, tabela se mora automatski ažurirati  
+- Sistem mora omogućiti sortiranje tabele po bodovima ili drugim relevantnim parametrima (npr. gol razlika)  
+- Ako podaci nisu dostupni, sistem mora prikazati odgovarajuću poruku umjesto prazne ili netačne tabele  
+
+---
+
+## 13. USER STORY – Rezervisanje termina za individualni trening
+
+**ID storyja:** US-13
+
+**Naziv storyja:** Rezervisanje termina za individualni trening
+
+**Opis:**
+Kao igrač, želim da rezervišem termin za individualni trening, kako bih mogao poboljšati svoje vještine i performanse.
+
+**Poslovna vrijednost:**
+- Omogućava brže zakazivanje pregleda
+- Povećava zadovoljstvo svih uključenih stakeholdera
+
+**Prioritet:** Srednji
+
+**Pretpostavke:**
+- Igrač je prijavljen u sistem
+- Postoji barem jedan slobodan termin za individualni trening
+
+**Otvorena pitanja:**
+- Postoji li ograničen broj rezervacija individualnih termina po igraču u mjesecu?
+
+**Veze:** US-09
+
+**Acceptance Criteria:**
+
+- Kada igrač izabere slobodan termin, tada sistem mora omogućiti rezervaciju  
+- Sistem mora prikazati samo dostupne termine  
+- Ako termin nije dostupan, sistem ne smije dozvoliti rezervaciju  
+- Korisnik treba dobiti potvrdu o uspješnoj rezervaciji  
+- Sistem ne smije dozvoliti istom igraču da rezerviše isti termin više puta  
+
+---
+
+## 14. USER STORY – Rezervisanje termina grupnih treninga
+
+**ID storyja:** US-14
+
+**Naziv storyja:** Rezervisanje termina grupnih treninga
+
+**Opis:**
+Kao trener, želim da rezervišem termin za grupni trening, kako bi tim mogao trenirati zajedno i unaprijediti svoju formu.
+
+**Poslovna vrijednost:**
+- Omogućava brže zakazivanje pregleda
+- Povećava zadovoljstvo svih uključenih stakeholdera
+- Smanjuje količinu administrativnih obaveza trenera
+
+**Prioritet:** Visok
+
+**Pretpostavke:**
+- Trener je prijavljen u sistem
+- Postoji barem jedan slobodan termin za grupni trening
+
+**Otvorena pitanja:**
+- Postoji li ograničen broj rezervacija grupnih termina u mjesecu?
+
+**Veze:** US-10, US-10.1
+
+**Acceptance Criteria:**
+
+- Kada trener izabere slobodan termin, tada sistem mora sačuvati rezervaciju  
+- Sistem mora prikazati dostupne termine za grupne treninge  
+- Ako termin nije dostupan, sistem ne smije dozvoliti rezervaciju  
+- Korisnik treba dobiti potvrdu o uspješnoj rezervaciji  
+- Sistem mora omogućiti pregled svih zakazanih grupnih treninga 
+
+---
+
+## 15. USER STORY – Prijavljivanje tima na takmičenje
+
+**ID storyja:** US-15
+
+**Naziv storyja:** Prijavljivanje tima na takmičenje
+
+**Opis:**
+Kao trener, želim da prijavim tim na takmičenje, kako bi tim mogao učestvovati u turnirima, ligama i slično.
+
+**Poslovna vrijednost:**
+- Omogućava bržu prijavu na takmičenja
+- Povećava zadovoljstvo i vremensku efikasnost svih uključenih stakeholdera
+- Smanjuje količinu administrativnih obaveza trenera
+
+**Prioritet:** Visok
+
+**Pretpostavke:**
+- Trener je prijavljen u sistem
+- Tim ispunjava uslove za učešće na takmičenju
+
+**Otvorena pitanja:**
+- Da li trener može prijaviti tim na više takmičenja odjednom
+
+**Acceptance Criteria:**
+
+- Kada trener unese validne podatke, tada sistem mora evidentirati prijavu tima  
+- Ako tim ne ispunjava uslove, sistem ne smije dozvoliti prijavu  
+- Sistem mora omogućiti unos svih potrebnih informacija o timu i takmičenju  
+- Korisnik treba dobiti potvrdu o uspješnoj prijavi  
+- Sistem mora omogućiti pregled svih prijavljenih takmičenja za tim  
