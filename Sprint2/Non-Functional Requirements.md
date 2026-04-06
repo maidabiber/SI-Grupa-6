@@ -16,3 +16,4 @@
 | NFR-14 | Upotrebljivost   | UI mora biti dostupan i čitljiv na različitim veličinama ekrana i preglednicima (Chrome, Edge, Firefox, Safari). | Testiranje na različitim uređajima i browserima. | Srednji | / |
 | NFR-15 | Pouzdanost | Svi korisnički unosi (rezultati, datumi, lični podaci) moraju biti validirani na serverskoj strani kako bi se spriječio unos nelogičnih podataka (npr. negativan broj golova ili datum u prošlosti). | Black-box testiranje unosa ekstremnih i netačnih vrijednosti. | Visok| / |
 | NFR-16 | Integritet | Sistem ne smije dozvoliti kreiranje duplih rezervacija za isti sportski teren i vremenski interval | Simulacija istovremenog slanja zahtjeva za isti termin od strane više testnih botova. | Visok | / |
+
