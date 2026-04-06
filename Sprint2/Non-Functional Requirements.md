@@ -1,6 +1,6 @@
 | ID     | Kategorija      | Opis zahtjeva | Kako će se provjeravati | Prioritet | Napomena |
 |--------|------------------|---------------|--------------------------|-----------|----------|
-| NFR-01 | Performanse      | Sistem mora obraditi korisnički zahtjev (prijava, pregled rasporeda, unos rezultata) u razumnom vremenskom roku. | Testiranje opterećenjem (load testing) će se vršiti simulacijom većeg broja korisnika istovremeno. | Visok | / |
+| NFR-01 | Performanse      | Sistem mora obraditi korisnički zahtjev (prijava, pregled rasporeda, unos rezultata) u maksimalno 2 sekunde za 95% zahtjeva. | Testiranje opterećenjem (load testing) će se vršiti simulacijom većeg broja korisnika istovremeno. | Visok | / |
 | NFR-02 | Skalabilnost     | Sistem mora moći podržati više aktivnih korisnika odjednom, bez značajnog opadanja performansi. | Test opterećenjem i stres testiranje. | Visok | MVP fokus je na lokalne lige, ali predviđa se rast korisnika. |
 | NFR-03 | Pouzdanost       | Sistem mora imati uptime od 99%, što uključuje minimalne prekide rada. | Praćenje uptime kroz monitoring alate i zapisnike servera. | Visok | / |
 | NFR-04 | Sigurnost        | Sve lozinke korisnika moraju biti šifrovane (hashed & salted), a komunikacija putem web aplikacije koristi HTTPS protokol. | Penetration test i provjera enkripcije. | Visok | / |
@@ -11,7 +11,7 @@
 | NFR-09 | Održivost        | Sistem treba biti održiv (modularna arhitektura i dokumentovan API za buduće nadogradnje). | Pregled dokumentacije i arhitekture od strane razvojnog tima. | Srednji | Olakšava dodavanje novih funkcionalnosti. |
 | NFR-10 | Notifikacije     | Sistem mora poslati e-mail obavještenje korisniku o bitnim promjenama, kao što su rezultati i izmjene rasporeda, u roku od najviše 1 minute od nastanka događaja. | Testiranje simulacijom događaja i praćenje kašnjenja notifikacija. | Srednji | / |
 | NFR-11 | Pouzdanost       | Baza podataka mora imati redovan backup, s mogućnošću obnove podataka. | Testiranje backup i restore procesa. | Visok | / |
-| NFR-12 | Performanse      | Sistem mora omogućiti brzo pretraživanje i filtriranje rasporeda i rezultata, čak i kod velikog broja unosa. | Testiranje sa velikim datasetom. | Srednji | / |
+| NFR-12 | Performanse      | Sistem mora omogućiti brzo pretraživanje i filtriranje rasporeda i rezultata, čak i kod velikog broja unosa (maksimalno 3 sekunde za upit sa 1000+ unosa). | Testiranje sa velikim datasetom. | Srednji | / |
 | NFR-13 | Sigurnost        | Sistem mora evidentirati sve bitne akcije korisnika u logovima (prijava, izmjena rezultata, rezervacija termina), radi audit-trail funkcionalnosti. | Provjera logova i testiranje prikaza audit-trail podataka. | Srednji | / |
 | NFR-14 | Upotrebljivost   | UI mora biti dostupan i čitljiv na različitim veličinama ekrana i preglednicima (Chrome, Edge, Firefox, Safari). | Testiranje na različitim uređajima i browserima. | Srednji | / |
 | NFR-15 | Pouzdanost | Svi korisnički unosi (rezultati, datumi, lični podaci) moraju biti validirani na serverskoj strani kako bi se spriječio unos nelogičnih podataka (npr. negativan broj golova ili datum u prošlosti). | Black-box testiranje unosa ekstremnih i netačnih vrijednosti. | Visok| / |
