@@ -769,4 +769,67 @@ Kao trener, želim da prijavim tim na takmičenje, kako bi tim mogao učestvovat
 - Ako tim ne ispunjava uslove, sistem ne smije dozvoliti prijavu  
 - Sistem mora omogućiti unos svih potrebnih informacija o timu i takmičenju  
 - Korisnik treba dobiti potvrdu o uspješnoj prijavi  
-- Sistem mora omogućiti pregled svih prijavljenih takmičenja za tim  
+- Sistem mora omogućiti pregled svih prijavljenih takmičenja za tim
+
+---
+
+## 16. USER STORY – Otkazivanje rezervacije individualnih/grupnih termina 
+
+**ID storyja:** US-16
+
+**Naziv storyja:** Otkazivanje rezervacije individualnih/grupnih termina
+
+**Opis:**
+Kao registrovani korisnik (Igrač/Trener), želim otkazati rezervisani termin, kako bih oslobodio termin drugima ako sam spriječen doći.
+
+**Poslovna vrijednost:**
+- Optimizacija popunjenosti kapaciteta objekta
+- Ažurnost kalendara u realnom vremenu
+- Smanjenje broja neiskorištenih termina (no-shows)
+
+**Prioritet:** Visok
+
+**Pretpostavke:**
+- Korisnik ima aktivnu rezervaciju u sistemu
+
+**Otvorena pitanja:**
+- Koliko tačno iznosi vremensko ograničenje za otkazivanje (npr. 12h ili 24h ranije)?
+- Da li postoje različita pravila otkazivanja za "Trenera" u odnosu na "Igrača"?
+
+**Veze:** US-03, US-13, US-14
+
+**Acceptance Criteria:**
+
+- Kada korisnik pristupi svojim rezervacijama, sistem mora prikazati listu predstojećih termina sa opcijom “Otkaži”
+- Ako korisnik pokuša otkazati termin unutar nedozvoljenog vremenskog okvira (npr. manje od 24h prije), sistem mora prikazati upozorenje o penalima ili onemogućiti akciju
+- Prije konačnog otkazivanja, sistem mora prikazati notifikaciju sa pitanjem “Da li ste sigurni da želite otkazati ovaj termin?”
+- Nakon potvrde otkazivanja, sistem mora automatski poslati notifikaciju vlasniku objekta i korisnicima na listi čekanja
+- Odmah nakon otkazivanja, status termina u javnom kalendaru se mora promijeniti iz “Zauzeto” u “Slobodno”
+- Korisnik treba dobiti vizuelnu potvrdu da je rezervacija uspješno poništena
+---
+
+## 17. USER STORY – Lista čekanja za termine
+
+**ID storyja:** US-17
+
+**Naziv storyja:** Prijava na listu čekanja
+
+**Opis:**
+Kao korisnik (Igrač/Trener), želim da se prijavim na listu čekanja za već zauzet termin, kako bih bio obaviješten ako se taj termin oslobodi.
+
+**Poslovna vrijednost:**
+- Povećava šansu za popunjavanje termina nakon iznenadnog otkazivanja
+- Poboljšava korisničko iskustvo pružanjem alternative
+
+**Prioritet:** Srednji
+
+**Veze:** US-16
+
+**Acceptance Criteria:**
+- Kada korisnik vidi termin koji je "Zauzet", sistem mora ponuditi opciju "Prijavi me na listu čekanja"
+- Sistem mora evidentirati korisnika na listu za taj specifičan termin i datum
+- Kada se taj termin otkaže (prema US-16), sistem mora poslati notifikaciju svim korisnicima sa liste čekanja
+- Sistem ne smije automatski rezervisati termin, već omogućiti korisniku sa liste da ga sam prvi rezerviše
+- Korisnik treba imati mogućnost da se ukloni sa liste čekanja ako mu termin više nije potreban
+
+---
