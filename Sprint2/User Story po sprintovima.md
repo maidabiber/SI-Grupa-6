@@ -108,7 +108,7 @@ Dodatna sigurnost sistema.
 
 ### 4.1 USER STORY – Pregled korisnika
 
-**ID storyja:** US-07.1 
+**ID storyja:** US-04.1 
 
 **Naziv storyja:** Pregled svih korisnika
 
@@ -125,7 +125,7 @@ Kao administrator, želim vidjeti sve korisnike, kako bih imao kontrolu nad sist
 
 ### 4. USER STORY – Administrator (upravljanje korisnicima)
 
-**ID storyja:** US-07
+**ID storyja:** US-04
 
 **Naziv storyja:** Upravljanje korisnicima
 
@@ -148,7 +148,7 @@ Osigurava kontrolu i kvalitet platforme.
 
 ### 5. USER STORY – Administrator (upravljanje sadržajem)
 
-**ID storyja:** US-08
+**ID storyja:** US-05
 **Naziv storyja:** Upravljanje sadržajem (sportovima,timovima i ligama)
 
 **Opis:**
@@ -168,7 +168,7 @@ Osigurava relevantnost i tačnost sadržaja.
 
 ### 5.1 USER STORY – Upravljanje sportovima
 
-**ID storyja:** US-08.1 
+**ID storyja:** US-05.1 
 
 **Naziv storyja:** Upravljanje sportovima
 
@@ -182,7 +182,7 @@ Kao administrator, želim upravljati sportovima, kako bih održavao sistem organ
 
 ### 5.2 USER STORY – Upravljanje ligama 
 
-**ID storyja:** US-08.2 
+**ID storyja:** US-05.2 
 
 **Naziv storyja:** Upravljanje ligama 
 
@@ -197,7 +197,7 @@ Kao administrator, želim upravljati ligama i podacima, kako bih održavao tačn
 
 ## 6. USER STORY – Prijavljivanje tima na takmičenje
 
-**ID storyja:** US-15
+**ID storyja:** US-06
 
 **Naziv storyja:** Prijavljivanje tima na takmičenje
 
@@ -235,7 +235,7 @@ Kao trener, želim da prijavim tim na takmičenje, kako bi tim mogao učestvovat
 
 ## 7. USER STORY – Zakazivanje termina utakmice
 
-**ID storyja:** US-09
+**ID storyja:** US-07
 
 **Naziv storyja:** Zakazivanje termina utakmice
 
@@ -269,12 +269,12 @@ Kao organizator liga, želim zakazati termin utakmice, kako bi timovi mogli imat
 
 ### 8. USER STORY – Navijač (pregled sadržaja)
 
-**ID storyja:** US-06
+**ID storyja:** US-08
 
 **Naziv storyja:** Pregled rezultata utakmica i rasporeda
 
 **Opis:**
-Kao posjetilac stranice želim da imam uvid u rezultate i tabele uz mogućnost filtriranja, dok kao registrovani korisnik želim dodatnu opciju praćenja omiljenog tima.
+Kao posjetilac stranice (gost) želim da imam uvid u rezultate i tabele uz mogućnost filtriranja, dok kao registrovani korisnik želim dodatnu opciju praćenja omiljenog tima.
 
 **Poslovna vrijednost:**
 Povećava angažman i posjećenost platforme.
@@ -293,7 +293,7 @@ Povećava angažman i posjećenost platforme.
 
 ### 8.1 USER STORY – Pregled bez registracije
 
-**ID storyja:** US-06.1 
+**ID storyja:** US-08.1 
 
 **Naziv storyja:** Pregled bez registracije
 
@@ -309,7 +309,7 @@ Kao gost, želim da pregledam rezultate, bodove, pozicije timova kao i raspored 
 
 ### 8.2 USER STORY – Filtriranje sadržaja
 
-**ID storyja:** US-06.2
+**ID storyja:** US-08.2
 
 **Naziv storyja:** Filtriranje sadržaja
 
@@ -329,7 +329,7 @@ Kao gost, želim da filtriram utakmice, kako bih lakše pronašao željene infor
 
 ## 9. USER STORY – Evidencija utakmice
 
-**ID storyja:** US-10
+**ID storyja:** US-09
 
 **Naziv storyja:** Evidencija utakmice
 
@@ -351,7 +351,7 @@ Kao organizator liga, želim izvršiti evidenciju završene utakmice, kako bi ko
 - Da li postoji unaprijed definisan template za unos podataka
 - Da li je moguće naknadno uređivati evidenciju utakmice
 
-**Veze:** US-09
+**Veze:** US-07
 
 **Acceptance Criteria:**
 
@@ -365,7 +365,7 @@ Kao organizator liga, želim izvršiti evidenciju završene utakmice, kako bi ko
 
 ## 9.1. USER STORY – Računanje bodova utakmice
 
-**ID storyja:** US-10.1
+**ID storyja:** US-9.1
 
 **Naziv storyja:** Računanje bodova utakmice
 
@@ -385,7 +385,7 @@ Kao organizator liga, želim unijeti bodove utakmice, kako bi sistem automatski 
 **Otvorena pitanja:**
 - Da li će postojati dodatna validacija unosa bodova organizatora
 
-**Veze:** US-10
+**Veze:** US-09
 
 **Acceptance Criteria:**
 
@@ -398,7 +398,7 @@ Kao organizator liga, želim unijeti bodove utakmice, kako bi sistem automatski 
 ---
 ## 10. USER STORY – Pregled tabele rezultata i bodova 
 
-**ID storyja:** US-12
+**ID storyja:** US-10
 
 **Naziv storyja:** Pregled leaderboard-a timova
 
@@ -420,7 +420,7 @@ Kao registrovani korisnik, želim da vidim tabelu rezultata i bodova svih timova
 - Da li se tabela ažurira u realnom vremenu nakon unosa rezultata?
 - Da li postoji mogućnost filtriranja ili sortiranja tabele (npr. po broju bodova, gol razlici)?
 
-**Veze:** US-10, US-10.1
+**Veze:** US-09, US-09.1
 
 **Acceptance Criteria:**
 
@@ -436,7 +436,7 @@ Kao registrovani korisnik, želim da vidim tabelu rezultata i bodova svih timova
 
 ## 11. USER STORY – Vlasnik objekta (upravljanje terminima)
 
-**ID storyja:** US-04
+**ID storyja:** US-11
 
 **Naziv storyja:** Upravljanje dostupnošću termina
 
@@ -465,7 +465,7 @@ Direktno utiče na prihod i iskorištenost objekta.
 
  ### 11.1 USER STORY – Pregled kalendara termina
 
-**ID storyja:** US-04.1
+**ID storyja:** US-11.1
 
 **Naziv storyja:** Pregled kalendara termina
 
@@ -482,7 +482,7 @@ Omogućava bolju organizaciju i pregled iskorištenosti kapaciteta.
 - Vlasnik je prijavljen u sistem
 - Kalendar prikazuje ažurne podatke
 
-**Veze:** US-03 Upravljanje terminima
+**Veze:** US-11.1 Upravljanje terminima
 
 **Acceptance Criteria:**
 - Kada vlasnik otvori kalendar, tada vidi sve termine
@@ -492,7 +492,7 @@ Omogućava bolju organizaciju i pregled iskorištenosti kapaciteta.
 
 ### 11.2 USER STORY – Kreiranje slobodnog termina
 
-**ID storyja:** US-04.2
+**ID storyja:** US-11.2
 
 **Naziv storyja:** Kreiranje slobodnog termina
 
@@ -507,7 +507,7 @@ Povećava mogućnost popunjenosti objekta.
 **Pretpostavke:**
 - Vlasnik ima pristup kalendaru
 
-**Veze:** US-03
+**Veze:** US-11
 
 **Acceptance Criteria:**
 - Kada vlasnik unese termin, tada se on sprema u sistem
@@ -515,57 +515,12 @@ Povećava mogućnost popunjenosti objekta.
 - Sistem ne smije dozvoliti preklapanje termina
 - Novi termin treba biti prikazan kao slobodan
 
-### 11.3 USER STORY – Blokiranje termina
 
-**ID storyja:**  US-04.3
+i
 
-**Naziv storyja:** Blokiranje termina
+### 12. USER STORY – Pregled zahtjeva
 
-**Opis:**
-Kao vlasnik objekta, želim blokirati termin, kako bih ga rezervisao za interne potrebe.
-
-**Poslovna vrijednost:**
-Omogućava fleksibilno upravljanje resursima.
-
-**Prioritet:** Srednji
-
-**Pretpostavke:**
-- Termin već postoji
-
-**Veze:** US-03
-
-**Acceptance Criteria:**
-- Kada vlasnik blokira termin, tada postaje nedostupan
-- Sistem mora jasno označiti blokiran termin
-- Sistem ne smije dozvoliti rezervaciju blokiranog termina
-
-
-
-
-### 12. USER STORY – Vlasnik objekta (odobravanje rezervacija)
-
-**ID storyja:** US-05
-
-**Naziv storyja:** Obrada zahtjeva za rezervaciju
-
-**Opis:**
-Kao vlasnik objekta, želim da odobrim ili odbijem zahtjeve za rezervaciju, kako bih kontrolisao korištenje termina.
-
-**Poslovna vrijednost:**
-Kontrola nad rasporedom i korisnicima.
-
-**Prioritet:** Visok
-
-**Acceptance Criteria:**
-- Kada postoji zahtjev za rezervaciju, tada ga vlasnik vidi na listi
-- Sistem mora omogućiti opciju “odobri” ili “odbij”
-- Kada vlasnik odobri zahtjev, tada termin postaje zauzet
-- Kada vlasnik odbije zahtjev, tada termin ostaje slobodan
-- Korisnik treba dobiti notifikaciju o odluci
-
-### 12.1 USER STORY – Pregled zahtjeva
-
-**ID storyja:** US-05.1
+**ID storyja:** US-12
 
 **Naziv storyja:** Pregled zahtjeva za rezervaciju
 
@@ -580,17 +535,18 @@ Omogućava efikasno upravljanje rezervacijama.
 **Pretpostavke:**
 - Postoje poslani zahtjevi
 
-**Veze:** US-04 Obrada rezervacija
+**Veze:** US-11 Obrada rezervacija
 
 **Acceptance Criteria:**
-- Kada postoji zahtjev, tada se prikazuje na listi
+- Kada postoji zahtjev za rezervaciju, tada ga vlasnik vidi na listi
+- Sistem mora omogućiti opciju “odobri” ili “odbij”
 - Sistem mora prikazati korisnika i termin
 - Sistem mora omogućiti pregled po datumu
 
 
-### 12.2 USER STORY – Odobravanje rezervacije
+### 12.1 USER STORY – Odobravanje rezervacije
 
-**ID storyja:** US-05.2
+**ID storyja:** US-12.1
 
 **Naziv storyja:** Odobravanje rezervacije
 
@@ -605,7 +561,7 @@ Omogućava kontrolu nad korištenjem termina.
 **Pretpostavke:**
 - Zahtjev postoji
 
-**Veze:** US-04
+**Veze:** US-11
 
 **Acceptance Criteria:**
 - Kada vlasnik odobri zahtjev, tada termin postaje zauzet
@@ -613,9 +569,9 @@ Omogućava kontrolu nad korištenjem termina.
 - Korisnik treba dobiti potvrdu
 
 
-### 12.3 USER STORY – Odbijanje rezervacije
+### 12.2 USER STORY – Odbijanje rezervacije
 
-**ID storyja:** US-05.3
+**ID storyja:** US-12.2
 
 **Naziv storyja:** Odbijanje rezervacije
 
@@ -630,7 +586,7 @@ Omogućava selekciju korisnika i upravljanje rasporedom.
 **Pretpostavke:**
 - Zahtjev postoji
 
-**Veze:** US-04
+**Veze:** US-11
 
 **Acceptance Criteria:**
 - Kada vlasnik odbije zahtjev, tada termin ostaje slobodan
@@ -659,7 +615,7 @@ Kao igrač, želim da rezervišem termin za individualni trening, kako bih mogao
 **Otvorena pitanja:**
 - Postoji li ograničen broj rezervacija individualnih termina po igraču u mjesecu?
 
-**Veze:** US-09
+**Veze:** US-07
 
 **Acceptance Criteria:**
 
@@ -694,7 +650,7 @@ Kao trener, želim da rezervišem termin za grupni trening, kako bi tim mogao tr
 **Otvorena pitanja:**
 - Postoji li ograničen broj rezervacija grupnih termina u mjesecu?
 
-**Veze:** US-10, US-10.1
+**Veze:** US-09, US-09.1
 
 **Acceptance Criteria:**
 
@@ -712,7 +668,7 @@ Kao trener, želim da rezervišem termin za grupni trening, kako bi tim mogao tr
 
 ## 15. USER STORY – Pregled stanja na tabeli termina (igrač)
 
-**ID storyja:** US-11
+**ID storyja:** US-15
 
 **Naziv storyja:** Pregled stanja na tabeli termina
 
@@ -733,7 +689,7 @@ Kao igrač, želim da vidim stanje rasporeda termina u tabeli, kako bih mogao us
 - Da li su odvojeno označeni individualni termini treninga?
 - Da li se informacije prikazuju u realnom vremenu?
 
-**Veze:** US-09
+**Veze:** US-07
 
 **Acceptance Criteria:**
 
@@ -768,7 +724,7 @@ Kao registrovani korisnik (Igrač/Trener), želim otkazati rezervisani termin, k
 - Koliko tačno iznosi vremensko ograničenje za otkazivanje (npr. 12h ili 24h ranije)?
 - Da li postoje različita pravila otkazivanja za "Trenera" u odnosu na "Igrača"?
 
-**Veze:** US-03, US-13, US-14
+**Veze:**  US-13, US-14
 
 **Acceptance Criteria:**
 
@@ -806,11 +762,11 @@ Kao korisnik (Igrač/Trener), želim da se prijavim na listu čekanja za već za
 
 ---
 
-### 18. USER STORY – Registracija navijača 
+### 18. USER STORY – Notifikacije za opcionalno registrovanje navijaca
 
-**ID storyja:** US-06.3 
+**ID storyja:** US-18 
  
-**Naziv storyja:** Opcionalna registracija navijača
+**Naziv storyja:** Notifikacije za pracenje sadrzaja omiljenog tima
 
 **Opis:**
 Kao navijač, želim opciju registracije, kako bih pored svih navedenih funkcionalnosti koje su dostupne gostu mogao selektovati omiljeni tim, te primati notifikacije o njegovim rezultatima i rasporedu igranja utakmica
@@ -822,7 +778,7 @@ Kao navijač, želim opciju registracije, kako bih pored svih navedenih funkcion
 
 ## 19. USER STORY – Pregled AI predikcije
 
-**ID storyja:** US-18
+**ID storyja:** US-19
 
 **Naziv storyja:** Pregled AI predikcije
 
@@ -866,7 +822,7 @@ Kao registrovani korisnik, želim da imam pristup AI predikciji ishoda narednih 
 
 ### 20. USER STORY – Administracija baze i sistema
 
-**ID storyja:** US-08.3 
+**ID storyja:** US-20
  
 **Naziv storyja:** Administracija baze i sistema
 
