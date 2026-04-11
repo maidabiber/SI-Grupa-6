@@ -46,7 +46,7 @@ Ovaj dokument sadrži listu stavki koje je potrebno završiti u okviru projekta.
 | PB-23 | Sigurnosni protokoli | Zaštita ruta, enkripcija lozinki i zaštita privatnih podataka | Technical Task | Visok | M | To-Do | Sprint 6 | - |
 | PB-24 | Implementirati upravljanje ligama | Omogućiti kreiranje, uređivanje i brisanje liga u odnosu na prethodno definisane permisije | Feature | Visok | M | To-Do | Sprint 6 | - |
 | PB-25 | Implementirati upravljanje timovima | Organizator dodaje, uređuje i briše timove te ih povezuje sa ligama | Feature | Visok | M | To-Do | Sprint 6 | - |
-| PB-26 | Implementirati prijavu ekipa | Trener prijavljuje ekipu na ligu ili turnir | Feature | Srednji | M | To-Do | Sprint 6 | - |
+| PB-26 | Implementirati prijavu ekipa | Trener prijavljuje ekipu na ligu ili turnir | Feature | Srednji | M | To-Do | Sprint 7 | - |
 | PB-27 | Implementirati kreiranje rasporeda | Omogućiti organizatoru da kreira raspored utakmica s datumom, vremenom i lokacijom | Feature | Visok | M | To-Do | Sprint 7 | - |
 | PB-28 | Implementirati javni pregled i filtriranje | Omogućiti svim korisnicima (uključujući goste) pregled rasporeda, rezultata i tabela uz filtriranje po ligi, timu i datumu | Feature | Visok | S | To-Do | Sprint 7 | Ne zahtijeva login |
 | PB-29 | Implementirati unos rezultata | Odgovorni unosi rezultate odigranih utakmica | Feature | Visok | S | To-Do | Sprint 8 | - |
