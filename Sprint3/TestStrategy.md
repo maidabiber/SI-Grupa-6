@@ -63,8 +63,50 @@
 | Performanse i odziv sistema (NFR-01, NFR-02, NFR-12) | NE | DA – mjerenje vremena odgovora API-ja za prijavu, pregled rasporeda i unos rezultata (< 2 sekunde za 95% zahtjeva, NFR-01), filtriranje podataka sa 1000+ unosa u < 3 sekunde (NFR-12), stres testiranje sa 50+ istovremenih korisnika bez pada performansi (NFR-02) | NE | NE |
 
 
+## Veza sa acceptance kriterijima 
 
+Strategija testiranja se direktno oslanja na **Acceptance Criteria (AC)** kako bi se potvrdila ispravnost svake funkcionalnosti:
 
+### Registracija, login i profil (Sprint 5 i 6)
+* **Registracija (US-01):** Testira se proces kreiranja naloga. Provjerava se **AC** koji nalaže da sistem ne smije dozvoliti duple emailove. Takođe, testira se **AC** za prikaz greške pri nevalidnom emailu ili lozinki koja nije dovoljno jaka, dok validni podaci moraju rezultirati potvrdom o uspjehu.
+* **Login i Sesija (US-02, US-03, US-03.1):** Verifikuje se **AC** za preusmjeravanje na dashboard nakon unosa tačnih ulaznih podataka. Provjerava se **AC** koji zahtijeva prekid sesije nakon odjave i zabranu pristupa zaštićenim stranicama. Kod timeouta, testira se **AC** koji nalaže da sistem mora upozoriti korisnika prije automatske odjave.
+* **Korisnički profil (US-04.2):** Validacija **AC** prema kojem korisnik mora vidjeti svoje podatke (ime, email, uloga). Testira se mogućnost uređivanja username-a, e-maila i lozinke uz **AC** koji zabranjuje unos nevalidnih podataka.
 
+### Administrativne permisije i sigurnost (Sprint 5 i 6)
+* **Odobravanje uloga (US-1.1):**  Prema **AC**, proces je postavljen tako da se korisnici sa ulogama Vlasnika objekta ili Organizatora liga ne aktiviraju automatski. Testnim scenarijima potvrđujemo da oni nakon registracije ostaju u statusu "Na čekanju", bez prava na rad. Kriterij je ispunjen tek kada Admin u svom panelu potvrdi njihov zahtjev, čime im sistem direktno omogućava (otključava) pristup alatima za kreiranje objekata ili liga. Na ovaj način testiramo da niko ne može upravljati sadržajem platforme bez prethodne autorizacije.
+* **Upravljanje korisnicima i zaštita (US-04, US-04.3):** Provjerava se **AC** za brisanje i blokiranje korisnika. Ključni test je fokusiran na **AC** koji nalaže da lozinke moraju biti enkriptovane i da neautorizovan pristup zaštićenim rutama mora biti blokiran.
+* **Pregled korisnika (US-04.1):** Verifikacija **AC** koji nalaže prikaz liste svih naloga sa osnovnim podacima (email, uloga) uz funkcionalnu pretragu.
 
+### Upravljanje ligama, sportovima i timovima (Sprint 6 i 7)
+* **Kreiranje sadržaja (US-05, US-05.1, US-05.2):** Testira se **AC** da se novi sportovi i lige odmah pojavljuju u sistemu. Provjerava se **AC** koji zabranjuje duplikate naziva sportova, te **AC** koji omogućava kreiranje i izmjenu liga.
+* **Operativni rad trenera (US-06, US-07):** Validacija **AC** koji ograničava trenera da uređuje podatke samo za svoj tim. Testira se **AC** za dodavanje i uklanjanje igrača, uz strogu zabranu dupliranja igrača u istom timu.
+* **Takmičenja i Raspored (US-09, US-10):** Testira se **AC** za prijavu tima na takmičenje. Kod zakazivanja utakmica, provjerava se **AC** koji sprječava unos termina koji se preklapaju sa postojećim na istoj lokaciji.
 
+### Rezultati, tabele i javni pregled (Sprint 7 i 8)
+* **Pregled bez registracije (US-11, US-11.1):** Provjerava se **AC** koji gostima omogućava uvid u rezultate, raspored i tabele bez logina. Testira se **AC** za prikaz rezultata sa bodovima i automatsko ažuriranje tabela.
+* **Filtriranje (US-11.2):** Validacija **AC** koji nalaže prikaz dostupnih sportova i liga, uz ažuriranje liste rezultata u realnom vremenu nakon odabira filtera.
+* **Bodovanje i Leaderboard (US-12, US-12.1, US-13):** Verifikuje se **AC** za unos statistike. Testira se **AC** koji zabranjuje negativne bodove i **AC** koji nalaže automatsko ažuriranje i ispravno sortiranje tabele (po bodovima ili gol razlici).
+
+### Rezervacije, otkazivanje i navijači (Sprint 9 i 10)
+* **Vlasnik i Kalendar (US-14, US-15):** Testira se **AC** za kreiranje slobodnih termina bez preklapanja. Provjerava se **AC** prema kojem termin postaje zauzet tek kada vlasnik odobri zahtjev sa liste.
+* **Rezervacije treninga (US-16, US-17, US-18):** Verifikacija **AC** koji korisniku prikazuje samo dostupne termine, uz jasnu razliku između individualnih i grupnih treninga.
+* **Otkazivanje i Lista čekanja (US-19, US-20):** Testira se **AC** za otkazivanje termina, uz provjeru upozorenja ako se otkazuje u nedozvoljenom roku. Provjerava se **AC** za automatsko obavještavanje korisnika na listi čekanja čim se termin oslobodi.
+* **Navijači (US-21):** Provjerava se **AC** koji navijaču omogućava registraciju i biranje omiljenog tima radi primanja notifikacija.
+
+---
+
+##  Način evidentiranja rezultata testiranja
+* **Test Logovi:** Svaki testni scenario se označava statusom (Pass/Fail).
+* **Bug Reports:** Dokumentovanje grešaka koje sadrži opis, korake za reprodukciju, očekivani rezultat i stvarnu grešku.
+* **Finalni izvještaj:** Sumarni prikaz pokrivenosti Acceptance kriterija i preostalih rizika.
+
+---
+## Glavni rizici kvaliteta
+
+| Rizik kvaliteta | Opis rizika i rješenje |
+| :--- | :--- |
+| **Konkurentni pristup** | Rizik od duple rezervacije istog termina u istoj milisekundi (Rješava se locking mehanizmima). |
+| **Integritet bodovanja** | Rizik od pogrešne kalkulacije na tabeli, što može biti posljedica neispravnog ručnog unosa rezultata (npr. unos negativnih golova ili nevalidnih karaktera) ili greške u pozadinskom algoritmu. (Rješava se strogim validacijama AC-12.1). |
+| **Sigurnost podataka** | Kritičan rizik predstavlja mogućnost neovlaštenog pristupa osjetljivim informacijama, gdje bi, na primjer, trener jednog tima mogao pristupiti privatnim statistikama, ličnim podacima igrača ili taktičkim informacijama drugog tima. Ovakvo "curenje" podataka direktno krši sigurnosne standarde i fer-plej pravila aplikacije. Rješava se provjerom permisija definisanih u US-06, gdje sistem na nivou servera autorizuje svaki zahtjev i osigurava da trener može vidjeti i uređivati isključivo podatke tima za koji je direktno zadužen, dok se svi ostali pokušaji pristupa automatski blokiraju. |
+| **Kašnjenje ili neisporuka notifikacija (Notification Lag)** | Postoji rizik da korisnici na listi čekanja ne prime obavještenje o slobodnom terminu na vrijeme, što bi dovelo do praznih termina i finansijskog gubitka za vlasnika objekta. Ako sistem zakasni samo par minuta, prvi korisnik u redu gubi prednost koju mu garantuje sistem. Rješava se testiranjem asinhronih procesa prema US-20, gdje se simulira oslobađanje termina i mjeri brzina slanja notifikacije, osiguravajući da "trigger" mehanizam reaguje trenutno. |
+| **Neusklađenost javnog prikaza i stvarnog stanja (Cache Lag)** | Rizik da korisnici (na primjer treneri i igrači) vide termine kao "Slobodne" iako ih je neko upravo zauzeo, jer se prikaz nije osvježio. Rješava se testiranjem real-time ažuriranja prema US-11.1 i US-11.2, čime se osigurava da svaka promjena statusa (iz slobodnog u zauzeto) bude odmah vidljiva svim korisnicima, sprječavajući dezinformisanje. |
