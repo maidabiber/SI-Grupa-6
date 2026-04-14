@@ -52,9 +52,7 @@ Registrovani korisnik se prijavljuje u sistem unosom email adrese i lozinke kako
 ### Alternativni tokovi:
 A1: Pogrešni podaci – ako su email ili lozinka netačni, sistem prikazuje poruku: "Pogrešan email ili lozinka"
 
-A2: Nalog ne postoji – sistem obavještava korisnika da nalog sa unesenim emailom nije pronađen
-
-A3: Sistem nedostupan – prijava nije moguća, prikazuje se odgovarajuća poruka o grešci
+A2: Sistem nedostupan – prijava nije moguća, prikazuje se odgovarajuća poruka o grešci
 
 ### Ishod:
 Korisnik je uspješno prijavljen u sistem. Korisnička sesija je uspostavljena i korisnik ima pristup svim funkcionalnostima koje odgovaraju njegovoj ulozi.

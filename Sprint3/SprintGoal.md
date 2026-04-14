@@ -12,7 +12,6 @@ Cilj ovog sprinta je definisanje arhitekture i domenskog modela, uz planiranje n
 * **Proširiti User Stories:** Dodatno razraditi priče iz prethodnog sprinta
 * **Izraditi Risk Register:** Kreirati tabelu koja za svaki rizik (ID, opis, uzrok) definiše vjerovatnoću, uticaj i prioritet, uz konkretan plan mitigacije, zaduženu osobu i trenutni status.
 * **Definisati Architecture Overview:** Opisati arhitektonski pristup i navesti glavne module i komponente sistema, uz obrazloženje ključnih arhitektonskih odluka i rješavanje preostalih otvorenih pitanja.
-
 * **Modelirati domenu sistema:** Identifikovati glavne entitete, njihove ključne atribute i opisati veze između entiteta (logička struktura bez crtanja ERD dijagrama).
 * **Definisati Use Case modele:** Precizirati aktere i njihove interakcije sa sistemom, uključujući glavne i alternativne tokove te konačne ishode radnji.
 * **Uspostaviti Test Strategy:** Definisati ciljeve i nivoe testiranja, uz objašnjenje šta se testira na kojem nivou, način evidentiranja rezultata testiranja  i povezivanje testova sa Acceptance kriterijima.
@@ -27,12 +26,12 @@ Cilj ovog sprinta je definisanje arhitekture i domenskog modela, uz planiranje n
 
 | ID | Naziv zadatka             | Odgovorna osoba                                      | Status     | Napomena |
 |----|---------------------------|------------------------------------------------------|------------|----------|
-| 1  | Risk Register             | Irma Topčagić                                  |  | -        |
+| 1  | Risk Register             | Irma Topčagić, Anes Mirvić                                 |  | -        |
 | 2  | Domain Model              |         Semir Jamaković, Mehdi Zaimović              |   | -        |
 | 3  | Use Case Model            | Amna Kerla                                       |   | -        |
 | 4  | Architecture Overview     | Zeir Mašić                       |   | -        |
 | 5  | Test Strategy             | Maida Biber                    |    | -        |
-| 6 | Ažuriranje dokumenta User Stories | Ilma Hindija | |-|
+| 6  | Ažuriranje dokumenta User Stories | Ilma Hindija | |-|
 
 ---
 
