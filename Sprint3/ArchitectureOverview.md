@@ -79,7 +79,7 @@ Posebnu ulogu ima podsistem za notifikacije. Kada dođe do relevantnog događaja
 |---|---|
 | AI servis | Python + scikit-learn + Flask |
 
-Odvojena komponenta odgovorna za generisanje predikcija ishoda utakmica. Komunicira s backendom isključivo kroz interni API poziv i nije direktno dostupna frontendu ni internetu. Podatke dobija isključivo od backenda u obliku JSON payloada — nema direktan pristup bazi podataka.
+Odvojena komponenta odgovorna za generisanje predikcija ishoda utakmica. Komunicira s backendom isključivo kroz interni API poziv i nije direktno dostupna frontendu ni internetu. Podatke dobija isključivo od backenda u obliku JSON payloada — nema direktan pristup bazi podataka. 
 
 Servis se sastoji od dva sloja:
 
@@ -87,7 +87,7 @@ Servis se sastoji od dva sloja:
 2. **Prezentacijski sloj** – formatira numeričke nalaze u čitljiv prikaz koji se vraća backendu i prikazuje korisniku kao informativan sadržaj
 
 Ciljna tačnost predikcije iznosi 60–70% (NFR-17). Predikcije nemaju nikakav uticaj na stvarne rezultate i služe isključivo kao informativni prikaz.
-
+Napomena: AI servis je u potpunosti hostovan lokalno unutar infrastrukture sistema, čime se eliminišu troškovi eksternih API poziva i osigurava privatnost podataka korisnika.
 ---
 
 ### 2.5 Sloj podataka – Baza podataka i Data Access Layer
@@ -201,7 +201,7 @@ Korisnik inicira izvoz → frontend šalje zahtjev backendu s parametrima izvje�
 | Baza podataka | PostgreSQL (relacijska) | Kompleksne relacije između entiteta zahtijevaju relacijski model s referencijalnim integritetom |
 | Frontend framework | React.js (finalna odluka) | Komponentna arhitektura prikladna za dinamičan UI s više uloga; velika zajednica |
 | AI biblioteka | scikit-learn | Dovoljna složenost za ciljanu tačnost 60–70%; lakše za održavanje od TensorFlow-a u MVP fazi |
-| AI data flow | Backend prosljeđuje snapshot podataka AI servisu | AI servis nema direktan pristup bazi — izolacija podataka, kontrolisani API, lakša zamjena modela |
+| AI data flow | Backend prosljeđuje snapshot podataka AI servisu | AI servis nema direktan pristup bazi — izolacija podataka, kontrolisani API, lakša zamjena modela. Osigurava privatnost i stabilnost jer predikcije ne zavise od interneta ili trećih strana |
 | Real-time ažuriranje | Polling (interval: 30s) | WebSocket zahtijeva dodatnu infrastrukturu; polling je dostatan jer se rezultati unose ručno |
 | Locking za rezervacije | Pessimistic locking na nivou baze | Sprečava race condition pri istovremenim zahtjevima za isti termin (NFR-16) |
 | Sigurnost | HTTPS + bcrypt + RBAC | Enkripcija komunikacije i lozinki te zaštita svih ruta (NFR-04, NFR-05) |
@@ -231,6 +231,7 @@ Korisnik inicira izvoz → frontend šalje zahtjev backendu s parametrima izvje�
 - **Ovisnost o jednom AI modelu** – ako odabrani pristup ne daje zadovoljavajuće rezultate, zamjena zahtijeva redizajn AI modula. Izolacija AI servisa umanjuje uticaj na ostatak sistema.
 - **Email kao jedini notifikacijski kanal** – korisnici koji ne prate email mogu propustiti važne obavijesti. U kasnijim sprintovima može se razmotriti in-app notifikacijski sistem.
 - **AI payload veličina** – pri velikom historijskom datasetu, JSON payload prema AI servisu može biti spor. Rješava se limitiranjem na posljednjih N utakmica po timu.
+- **Opterećenje resursa (Lokalni hosting)** – pošto su AI trening i PDF generisanje (Puppeteer) procesorski zahtjevni, postoji rizik od usporavanja backenda.
 
 ---
 
