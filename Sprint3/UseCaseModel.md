@@ -272,14 +272,17 @@ Igrač rezerviše slobodan termin za korištenje sportskog objekta zbog individu
 * Igrač nema drugu rezervaciju u istom terminu
 ### Glavni tok:
 1. Igrač pregledava dostupne termine
-2. Igrač odabira željeni slobodan termin
+2. Igrač odabira željeni **slobodan** termin
 3. Igrač klikne dugme "Rezerviši"
-4. Sistem provjerava dostupnost i da li igrač već ima rezervaciju u tom terminu
-5. Sistem sprema rezervaciju i označava termin kao zauzet
+4. Sistem provjerava da li igrač već ima rezervaciju u tom terminu, kao i status korisnika (da li je na listi nepouzdanih korisnika)
+5.1 Sistem automatski potvrđuje rezervaciju i označava termin kao zauzet (ako korisnik nije na listi nepouzdanih korisnika)
+5.2 Ako je korisnik na listi nepouzdanih korisnika, rezervacija se stavlja na čekanje i šalje se notifikacija korisniku
 ### Alternativni tokovi:
 A1: Termin je već zauzet – ako je termin u međuvremenu zauzet, sistem prikazuje poruku: "Termin je već rezervisan"
 
 A2: Dupla rezervacija – ako igrač već ima rezervaciju u tom periodu, sistem prikazuje poruku: "Već imate rezervaciju u ovom terminu"
+
+A3: Korisnik na listi nepouzdanih korisnika – sistem ne odobrava automatski nego stavlja na čekanje uz notifikaciju korisniku sa razlogom
 
 ### Ishod:
 Termin je uspješno rezervisan. Rezervacija je evidentirana u sistemu i igrač dobija potvrdu. Termin je označen kao zauzet i vidljiv ostalim korisnicima.
@@ -305,8 +308,11 @@ Korisnik otkazuje prethodno rezervisan termin u slučaju da ga više ne može is
 5. Korisnik potvrđuje otkazivanje
 6. Sistem briše rezervaciju i oslobađa termin
 7. Sistem obavještava prvog korisnika sa liste čekanja (ako postoji)
+8. Sistem provjerava vrijeme otkazivanja: ako je prekasno, korisniku se upisuje "prekršaj" u profil.
 ### Alternativni tokovi:
 A1: Prekasno otkazivanje – ako je prošao rok za otkazivanje, sistem prikazuje poruku: "Ne možete otkazati termin u ovom periodu"
+
+A2: Vlasnik otkazuje rezervaciju - vlasnik sportskog objekta može odlučiti u roku od 1h nakon kreiranja rezervacije da otkaže tu rezervaciju korisniku 
 
 ### Ishod:
 Rezervacija je uspješno otkazana. Termin je oslobođen i dostupan ostalim korisnicima. Korisnici na listi čekanja su obaviješteni o oslobođenom terminu.
@@ -317,21 +323,24 @@ Rezervacija je uspješno otkazana. Termin je oslobođen i dostupan ostalim koris
 ### Akter:
 Korisnik
 ### Naziv use casea:
-Prijava na listu čekanja za zauzet termin
+Prijava na listu čekanja za zauzet termin uslovna verifikacija
 ### Kratak opis:
-Korisnik se prijavljuje na listu čekanja za termin koji je trenutno zauzet. U slučaju otkazivanja rezervacije, sistem automatski obavještava prvog korisnika na listi čekanja.
+Sistem stavlja korisnika u status čekanja bilo na njegov zahtjev (za zauzete termine) ili automatski (za nepouzdane korisnike), kako bi se omogućila naknadna rezervacija ili ručna provjera vlasnika.
 ### Preduslovi:
 * Korisnik je prijavljen u sistem
-* Željeni termin je popunjen (zauzet)
+* Termin je zauzet ili je korisnik označen kao nepouzdan
 * Korisnik nije već na listi čekanja za taj termin
 ### Glavni tok:
-1. Korisnik pregledava termine i pronalazi zauzet termin koji ga zanima
-2. Korisnik klikne dugme "Prijavi se na listu čekanja"
-3. Sistem dodaje korisnika na listu čekanja za taj termin
-4. Sistem prikazuje potvrdu i informiše korisnika o poziciji na listi
+1. Korisnik pokušava rezervisati termin ili bira opciju za prijavu na listu.
+2. Sistem vrši provjeru dostupnosti termina i statusa korisnika:
+  2.1  Ako je termin zauzet: Korisnik potvrđuje prijavu na listu čekanja.
+  2.2  Ako je korisnik nepouzdan: Sistem automatski prebacuje zahtjev na listu za verifikaciju vlasniku (UC-16).
+4. Sistem evidentira korisnika u odgovarajuću bazu čekanja (pasivna lista za obavijesti ili aktivna za verifikaciju).
+5. Sistem prikazuje potvrdu korisniku o statusu "Na čekanju".
 ### Alternativni tokovi:
 A1: Već prijavljen – ako je korisnik već na listi čekanja za taj termin, sistem prikazuje poruku: "Već ste na listi čekanja"
 
+A2: Odustajanje – Korisnik može u svakom trenutku povući svoj zahtjev sa liste čekanja.
 ### Ishod:
 Korisnik je uspješno dodan na listu čekanja. U slučaju oslobađanja termina, sistem će automatski obavijestiti korisnika prema redoslijedu na listi.
 
@@ -343,7 +352,7 @@ Vlasnik objekta
 ### Naziv use casea:
 Upravljanje dostupnim terminima
 ### Kratak opis:
-Vlasnik sportskog objekta kreira, uređuje ili uklanja dostupne termine za korištenje objekta. Sistem sprečava preklapanje termina i osigurava konzistentnost rasporeda.
+Vlasnik sportskog objekta kreira, uređuje ili uklanja dostupne termine za korištenje objekta. Vlasnik definiše radno vrijeme objekta i fiksno trajanje termina (60/90 min). Sistem sprječava preklapanje termina i osigurava konzistentnost rasporeda.
 ### Preduslovi:
 * Vlasnik objekta je prijavljen u sistem
 * Vlasnik posjeduje prava za upravljanje terminima
@@ -368,68 +377,83 @@ Vlasnik objekta
 ### Naziv use casea:
 Pregled pristiglih zahtjeva za rezervaciju
 ### Kratak opis:
-Vlasnik objekta pregledava listu korisničkih zahtjeva za rezervaciju termina, može pregledati detalje svakog zahtjeva i odlučiti o daljim koracima (odobravanje ili odbijanje).
+Vlasnik pregledava sve rezervacije u realnom vremenu. Sistem automatski odvaja potvrđene termine od onih koji čekaju na ručnu verifikaciju.
 ### Preduslovi:
 * Vlasnik objekta je prijavljen u sistem
 * U sistemu postoje pristigli zahtjevi za rezervaciju
 ### Glavni tok:
-1. Vlasnik otvara listu pristiglih zahtjeva
-2. Vlasnik pregledava detalje pojedinog zahtjeva (korisnik, termin, aktivnost)
-3. Vlasnik bira akciju koju želi izvršiti (odobravanje ili odbijanje)
+1. Vlasnik otvara Dashboard sekciju za rezervacije.
+2. Sistem prikazuje hronološku listu rezervacija sa jasno označenim statusima (Potvrđeno, Na čekanju, Otkazano).
+3. Vlasnik selektuje određenu rezervaciju kako bi vidio detaljan profil korisnika.
+4. Sistem prikazuje podatke o korisniku: ime, kontakt i evidenciju prekršaja (broj nepojavljivanja ili kasnih otkazivanja).
+5. Sistem prikazuje tajmer (60 min), te korisnik u tom periodu treba odobriti ili odbiti rezervaciju korisnika koji se nalaze na listi nepouzdanih korisnika. Za ostale korisnike, vlasnik ima pravo u tom periodu otkazati rezervaciju koja je prethodno odobrena automatski.
+6. Vlasnik na osnovu uvida u profil i tajmer donosi odluku o daljim akcijama (odobravanje ili otkazivanje).
 ### Alternativni tokovi:
 A1: Nema zahtjeva – ako ne postoje pristigli zahtjevi, sistem prikazuje poruku: "Nema dostupnih zahtjeva"
 
+A2:  Istekao rok – ako je prošlo više od 1h od rezervacije, opcija otkazivanja nije dostupna
+
+A3: Pregled historije prekršaja – ako korisnik nema prethodnih prekršaja, sistem prikazuje oznaku "Pouzdan korisnik".
+
 ### Ishod:
-Vlasnik objekta ima potpun pregled svih pristiglih zahtjeva za rezervaciju i može efikasno upravljati njima.
+Vlasnik objekta ima potpun uvid u status termina i kredibilitet korisnika, što mu omogućava informisano upravljanje kapacitetima.
 
 ---
 
-# UC-16: Odobravanje rezervacije
+# UC-16: Odobravanje rezervacije sa liste čekanja za korisnike koji imaju prethodne prekršaje
 ### Akter:
 Vlasnik objekta
 ### Naziv use casea:
 Odobravanje zahtjeva za rezervaciju
-### Kratak opis:
-Vlasnik objekta odobrava pristigli zahtjev za rezervaciju termina. Sistem označava termin kao zauzet i obavještava korisnika o odobrenoj rezervaciji.
+### Kratak opis: Vlasnik objekta vrši ručnu validaciju i odobrava zahtjev za rezervaciju korisnika koji se nalazi na listi nepouzdanih (zbog prethodnih prekršaja). Sistem nakon odobrenja finalizuje rezervaciju i obavještava korisnika.
 ### Preduslovi:
 * Vlasnik objekta je prijavljen u sistem
 * Postoji zahtjev za rezervaciju koji čeka na odobrenje
-* Traženi termin je još uvijek slobodan
+* Nije isteklo više od 60 minuta od iniciranja zahtjeva (unutar timeout roka).
 ### Glavni tok:
 1. Vlasnik pregledava zahtjev za rezervaciju
-2. Vlasnik klikne dugme "Odobri"
-3. Sistem provjerava da li je termin još uvijek slobodan
-4. Sistem označava termin kao zauzet i kreira rezervaciju
-5. Sistem šalje potvrdu korisniku koji je podnio zahtjev
+2. Vlasnik otvara detalje zahtjeva kako bi pregledao profil korisnika i historiju njegovih prethodnih prekršaja.
+3. Vlasnik klikne dugme "Odobri", čime potvrđuje da prihvata rizik rezervacije za navedenog korisnika.
+4. Sistem validira dostupnost termina u realnom vremenu kako bi osigurao da nije došlo do preklapanja.
+5. Sistem mijenja status rezervacije iz "Na čekanju" u "Potvrđeno".
+6. Sistem automatski prekida tajmer od 60 minuta koji je bio vezan za taj zahtjev.
+7. Sistem šalje notifikaciju korisniku sa potvrdom da je vlasnik ručno odobrio njegov termin.
 ### Alternativni tokovi:
 A1: Termin već zauzet – ako je termin u međuvremenu već zauzet, sistem prikazuje poruku: "Termin više nije dostupan" i zahtjev se ne može odobriti
+
+A2: Istek vremena za odobrenje – Ako vlasnik ne izvrši korak 3 unutar 60 minuta, sistem automatski odbija zahtjev.
 
 ### Ishod:
 Rezervacija je uspješno odobrena. Termin je označen kao zauzet i korisnik je obaviješten o odobrenoj rezervaciji.
 
 ---
 
-# UC-17: Odbijanje rezervacije
+# UC-17: Odbijanje zahtjeva ili otkazivanje rezervacije
 ### Akter:
 Vlasnik objekta
 ### Naziv use casea:
-Odbijanje zahtjeva za rezervaciju
+Odbijanje zahtjeva ili otkazivanje rezervacije
 ### Kratak opis:
-Vlasnik objekta odbija pristigli zahtjev za rezervaciju termina. Sistem evidentira odbijanje i obavještava korisnika, pri čemu se termin oslobađa za eventualne nove zahtjeve.
+Vlasnik objekta odbija zahtjev koji je na čekanju (za nepouzdane korisnike) ili koristi pravo otkazivanja automatski potvrđene rezervacije u roku od 60 minuta od njenog nastanka.
 ### Preduslovi:
 * Vlasnik objekta je prijavljen u sistem
-* Postoji zahtjev za rezervaciju koji čeka na odluku
+* Zahtjev je u statusu "Na čekanju" ili je rezervacija "Potvrđena" prije manje od 60 minuta.
 ### Glavni tok:
-1. Vlasnik pregledava zahtjev za rezervaciju
-2. Vlasnik klikne dugme "Odbij"
-3. Vlasnik može opciono unijeti razlog odbijanja
-4. Sistem evidentira odbijanje i oslobađa termin
-5. Sistem obavještava korisnika o odbijenom zahtjevu
+1. Vlasnik na Dashboardu selektuje rezervaciju koju želi odbiti ili otkazati.
+2. Sistem provjerava preostalo vrijeme (tajmer) kako bi utvrdio da li je intervencija i dalje moguća (unutar 1h).
+3. Vlasnik klikne dugme "Odbij/Otkaži"
+4. Sistem otvara prozor za unos obrazloženja, gdje je vlasnik obavezan navesti razlog (npr. "Korisnik na listi nepouzdanih korisnika", "Privatni termin", "Tehnički kvar").
+5. Vlasnik potvrđuje akciju nakon unosa razloga.
+6. Sistem mijenja status rezervacije u "Odbijeno" ili "Otkazano od strane vlasnika"
+7. Sistem oslobađa termin u kalendaru, čineći ga ponovo dostupnim za druge korisnike.
+8. Sistem šalje notifikaciju korisniku koja sadrži informaciju o otkazivanju i navedeno obrazloženje vlasnika.
 ### Alternativni tokovi:
-Nema – vlasnik uvijek može odbiti zahtjev koji čeka na odluku
+A1: Isteklo vrijeme za otkazivanje – ako je od momenta rezervacije prošlo više od 60 minuta, sistem onemogućava opciju otkazivanja bez dodatnih administrativnih procedura.
+
+A2: Nedostaje obrazloženje – ako vlasnik pokuša potvrditi otkazivanje bez unosa teksta, sistem prikazuje poruku: "Morate navesti razlog otkazivanja" i ne dozvoljava završetak akcije.
 
 ### Ishod:
-Zahtjev za rezervaciju je odbijen. Korisnik je obaviješten o odbijanju, a termin je oslobođen za nove zahtjeve.
+Zahtjev za rezervaciju je odbijen ili otkazan. Korisnik je obaviješten o tome, a termin je oslobođen za nove zahtjeve.
 
 ---
 
@@ -449,8 +473,9 @@ Trener rezerviše termin za cijeli tim radi treninga. Sistem provjerava dostupno
 2. Trener odabira termin pogodan za grupnu aktivnost
 3. Trener unosi podatke o grupi (naziv tima, broj učesnika, aktivnost)
 4. Trener klikne dugme "Rezerviši"
-5. Sistem provjerava dostupnost i kapacitet
-6. Sistem sprema rezervaciju i prikazuje potvrdu
+5. Sistem provjerava listu nepouzdanih korisnika
+6.1 Ako trener nije na listi nepouzdanih korisnika – automatski potvrđuje rezervaciju
+6.2 Ako jest – stavlja na čekanje i šalje notifikaciju treneru
 ### Alternativni tokovi:
 A1: Termin je već zauzet – ako je termin u međuvremenu zauzet, sistem prikazuje poruku: "Termin je već rezervisan"
 
