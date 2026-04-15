@@ -728,8 +728,8 @@ Direktno utiče na prihod i iskorištenost objekta.
 - Sistem automatski dodaje korisnika na listu nepouzdanih korisnika nakon definisanog broja prekršaja (npr. 3 nepojavljivanja ili kasna otkazivanja)
 - Vlasnik može ručno dodati ili ukloniti korisnika sa liste nepouzdanih korisnika uz navođenje razloga
 - Sistem automatski označava termin kao zauzet odmah nakon rezervacije, ukoliko korisnik nije na listi nepouzdanih korisnika
-- Ako je korisnik na listi nepouzdanih korisnika, rezervacija se stavlja na čekanje i vlasnik je dužan u roku od 1h odobriti ili odbiti zahtjev, a korisnik dobija notifikaciju o razlogu čekanja
-- Vlasnik može otkazati automatski potvrđenu rezervaciju u roku od 1h od trenutka rezervacije uz obavezno navođenje razloga, nakon čega korisnik dobija notifikaciju
+- Ako je korisnik na listi nepouzdanih, rezervacija se stavlja na čekanje. Vlasnik je dužan odobriti ili odbiti zahtjev u roku od 24 sata nakon slanja, ili najkasnije 2 sata prije početka termina ukoliko je termin unutar narednog dana. Korisnik odmah dobija notifikaciju da je na čekanju zbog statusa računa. Ukoliko vlasnik ne donese odluku u navedenom roku, sistem automatski odbija zahtjev kako bi se spriječilo blokiranje termina.
+- Vlasnik može otkazati automatski potvrđenu rezervaciju najkasnije 24 sata prije termina uz obavezno navođenje razloga, nakon čega korisnik dobija notifikaciju
 - Sistem ne smije dozvoliti dvostruku rezervaciju istog termina
 - Korisnik treba dobiti obavještenje o svakoj promjeni statusa termina
 
