@@ -14,151 +14,212 @@ Arhitekturni stil prati **modularan monolitni pristup** u početnoj fazi razvoja
 
 ## 2. Glavne komponente sistema
 
-Sistem se sastoji od četiri glavne komponente:
+### 2.1 Korisničke uloge
 
-| Komponenta | Tehnologija (prijedlog) | Opis |
+U sistemu je definisano sedam tipova korisnika:
+
+- **Administrator** – puni pristup sistemu; upravlja korisnicima, ligama i sistemskim postavkama
+- **Organizator** – kreira i upravlja ligama, rasporedima utakmica i unosi rezultate
+- **Trener** – prijavljuje tim na takmičenja, rezerviše termine za grupne treninge
+- **Igrač** – pregledava raspored i rezultate svog tima, prima notifikacije
+- **Vlasnik objekta** – unosi dostupnost terena, odobrava ili odbija zahtjeve za rezervaciju
+- **Navijač** – prati omiljeni tim, prima notifikacije o rezultatima i rasporedu
+- **Gost** – javni pregled rasporeda, tabela i rezultata bez registracije i prijave
+
+Sve uloge prolaze kroz isti Auth & RBAC sloj na backendu koji na osnovu JWT tokena određuje dozvole za svaki zahtjev.
+
+---
+
+### 2.2 Prezentacijski sloj – Frontend
+
+| Komponenta | Tehnologija |
+|---|---|
+| Frontend (klijentska aplikacija) | React.js |
+
+Korisnički interfejs kojeg koriste sve uloge u sistemu. Realizovan kao Single Page Application (SPA).
+
+- Prikaz rasporeda utakmica i tabele lige
+- Forme za unos rezultata, zakazivanje utakmica i rezervaciju termina
+- Dashboard prilagođen ulozi korisnika
+- Sekcija AI predikcija
+- Admin panel za upravljanje korisnicima i ligama
+- Responzivan dizajn za desktop i mobilne uređaje (NFR-06, NFR-14)
+
+---
+
+### 2.3 Aplikativni sloj – Backend
+
+| Komponenta | Tehnologija |
+|---|---|
+| Backend (API server) | Node.js + Express |
+
+Odgovoran za poslovnu logiku sistema, validaciju svih podataka na serverskoj strani, autentifikaciju i autorizaciju, te komunikaciju između svih ostalih komponenti.
+
+Najznačajniji dio ove komponente jeste Auth & RBAC sloj. Nakon što se korisnik prijavi, backend izdaje JWT token (trajanje 15 min) koji prati svaki naredni zahtjev prema API-ju. Refresh token se čuva u `httpOnly` cookieu. RBAC zatim provjerava permisije te odobrava ili odbija zahtjev na osnovu uloge korisnika.
+
+Kada zahtjev prođe autorizaciju, nastupa poslovna logika sistema. Ona obuhvata upravljanje ligama i timovima, zakazivanje utakmica i provjeru dostupnosti termina, unos rezultata i automatsko ažuriranje tabela, te upravljanje rezervacijama. Svaka od ovih akcija komunicira s bazom podataka, a po potrebi i s AI servisom ili email servisom. Backend bilježi sve važne akcije korisnika u audit log (NFR-13), čime se osigurava sljedivost svakog unosa i izmjene u sistemu.
+
+Posebnu ulogu ima podsistem za notifikacije. Kada dođe do relevantnog događaja (promjena rasporeda, potvrda rezervacije, novi rezultat), backend asinhrono poziva email servis i šalje obavještenje relevantnim korisnicima bez blokiranja odgovora prema frontendu (NFR-10).
+
+#### Ključne funkcionalnosti backenda:
+
+- RESTful API s CORS whitelistom (dozvoljen pristup samo s domena frontend aplikacije)
+- Autentifikacija i autorizacija (JWT + RBAC)
+- Upravljanje ligama, timovima, rasporedom i rezultatima
+- Upravljanje rezervacijama i terminima
+- Automatsko računanje tabele i bodova
+- Upravljanje notifikacijama (async)
+- Audit log akcija (NFR-13)
+
+---
+
+### 2.4 AI servis
+
+| Komponenta | Tehnologija |
+|---|---|
+| AI servis | Python + scikit-learn + Flask |
+
+Odvojena komponenta odgovorna za generisanje predikcija ishoda utakmica. Komunicira s backendom isključivo kroz interni API poziv i nije direktno dostupna frontendu ni internetu. Podatke dobija isključivo od backenda u obliku JSON payloada — nema direktan pristup bazi podataka.
+
+Servis se sastoji od dva sloja:
+
+1. **ML sloj** – trenira model na historijskim podacima (rezultati, forma timova), generiše numeričke vjerovatnoće za svaki mogući ishod (pobjeda/neriješeno/poraz) koristeći scikit-learn klasifikatore
+2. **Prezentacijski sloj** – formatira numeričke nalaze u čitljiv prikaz koji se vraća backendu i prikazuje korisniku kao informativan sadržaj
+
+Ciljna tačnost predikcije iznosi 60–70% (NFR-17). Predikcije nemaju nikakav uticaj na stvarne rezultate i služe isključivo kao informativni prikaz.
+
+---
+
+### 2.5 Sloj podataka – Baza podataka
+
+| Komponenta | Tehnologija |
+|---|---|
+| Baza podataka | PostgreSQL (Primary + Replica) |
+
+Centralno trajno skladište svih podataka sistema. Jedino backend ima direktan pristup bazi.
+
+- Korisnici, uloge i permisije
+- Timovi, lige, utakmice i raspored
+- Rezultati i tabele
+- Rezervacije i dostupnost terena
+- Audit log akcija
+
+Baza na nivou ograničenja (constraints) sprečava kreiranje duplih rezervacija za isti teren i vremenski interval putem pessimistic lockinga (NFR-16), te osigurava referencijalni integritet između entiteta. PostgreSQL Primary + Replica konfiguracija osigurava visoku dostupnost i failover za postizanje 99% uptime (NFR-03, NFR-11).
+
+---
+
+### 2.6 Pomoćni servisi
+
+- **Email servis** (SendGrid) — asinhrono slanje notifikacija korisnicima (NFR-10)
+- **PDF generator** (Puppeteer, server-side) — generisanje PDF izvještaja rasporeda i tabela (PB-39, UC-23)
+
+---
+
+## 3. Dijagram arhitekture
+
+![Architecture Diagram](./SI-ArchitectureOverview_drawio.png)
+
+---
+
+## 4. Odgovornosti komponenti
+
+| Komponenta | Odgovornost |
+|---|---|
+| Frontend | Prikazuje podatke korisniku prema njegovoj ulozi, prikuplja input putem formi, vrši osnovnu klijentsku validaciju. Ne sadrži poslovnu logiku i ne pristupa bazi niti AI servisu direktno. |
+| Backend API | Provodi autentifikaciju i autorizaciju (JWT + RBAC), implementira poslovnu logiku, upravlja pozivima prema bazi, AI servisu i email servisu. Jedina komponenta s direktnim pristupom bazi. |
+| AI servis | Prima historijske podatke od backenda kao JSON payload, generiše predikcije ishoda utakmica, vraća rezultate u strukturiranom formatu. Nije izložen frontendu. |
+| Baza podataka | Trajno čuva sve poslovne podatke. Jedino backend pristupa bazi direktno. |
+| Email servis | Asinhrono šalje notifikacije korisnicima o relevantnim događajima (promjena rasporeda, potvrda rezervacije, novi rezultat). |
+| Auth & RBAC | Upravlja korisničkim identitetima, sesijama i pravima pristupa. Svaki API poziv prolazi kroz ovaj sloj. |
+| PDF generator | Server-side generisanje PDF dokumenata putem Puppeteera; vraća se frontendu kao `Content-Disposition: attachment` response. |
+
+---
+
+## 5. Tok podataka i interakcija
+
+Korisnik komunicira isključivo s frontend aplikacijom putem web preglednika. Frontend ne pristupa bazi podataka niti AI servisu direktno — svaki zahtjev šalje se backendu kao HTTPS poziv na odgovarajuću API rutu. Backend je centralna tačka sistema: prima zahtjev, provjerava autentifikaciju i autorizaciju, izvršava poslovnu logiku i po potrebi komunicira s bazom podataka, AI servisom ili email servisom. Rezultat se vraća frontendu koji ga prikazuje korisniku.
+
+Baza podataka nije direktno dostupna nijednoj komponenti osim backendu. AI servis ne komunicira s bazom — backend mu pri svakom pozivu šalje potrebne historijske podatke kao JSON payload. Email servis se poziva asinhrono, što znači da slanje notifikacije ne blokira odgovor koji korisnik čeka.
+
+### 5.1 Tok autentifikacije (UC-01, UC-02)
+
+Korisnik unosi kredencijale na frontendu → backend validira podatke i provjerava bazu → izdaje JWT token (trajanje 15 min) i refresh token (httpOnly cookie) → frontend šalje JWT pri svakom narednom zahtjevu → backend provjerava token i ulogu korisnika putem RBAC-a → odobrava ili odbija zahtjev.
+
+### 5.2 Tok zakazivanja utakmice (UC-07)
+
+Organizator popunjava formu na frontendu → zahtjev ide na backend → backend provjerava dostupnost termina i timova u bazi → sprema utakmicu → asinhrono šalje notifikaciju relevantnim korisnicima putem email servisa.
+
+### 5.3 Tok unosa rezultata i ažuriranja tabele (UC-09, UC-10)
+
+Ovlašteni korisnik unosi rezultat putem frontenda → backend sprema rezultat u bazu → backend automatski izračunava bodove i ažurira tabelu u istoj transakciji → frontend dohvata ažuriranu tabelu pri sljedećem polling ciklusu (max 30 sekundi kašnjenja u prikazu).
+
+### 5.4 Tok rezervacije termina (UC-14, UC-16, UC-17)
+
+Korisnik šalje zahtjev za rezervaciju → backend primjenjuje pessimistic lock na termin → kreira zahtjev u bazi sa statusom "na čekanju" → vlasnik objekta pregleda zahtjev i odobrava ili odbija → backend mijenja status termina u bazi → asinhrono šalje notifikaciju korisniku o ishodu zahtjeva.
+
+### 5.5 Tok AI predikcije (UC-21)
+
+Korisnik otvara sekciju predikcija → frontend šalje zahtjev backendu → backend dohvata historijske podatke iz baze i prosljeđuje ih AI servisu kao JSON payload → AI servis generiše predikciju i vraća rezultat backendu → backend vraća predikciju frontendu → prikazuje se korisniku kao informativan sadržaj.
+
+### 5.6 Tok generisanja PDF-a (UC-23)
+
+Korisnik inicira izvoz → frontend šalje zahtjev backendu s parametrima izvještaja → backend dohvata podatke iz baze, renderuje HTML predložak i konvertuje ga u PDF putem Puppeteera → vraća PDF kao attachment → browser preuzima fajl.
+
+---
+
+## 6. Ključne tehničke odluke
+
+| Odluka | Odabir | Obrazloženje |
 |---|---|---|
-| **Frontend (klijentska aplikacija)** | React.js | Korisnički interfejs dostupan putem web preglednika |
-| **Backend (API server)** | Node.js + Express | Poslovna logika i REST API |
-| **Baza podataka** | PostgreSQL | Trajno čuvanje svih podataka sistema |
-| **AI servis** | Python + scikit-learn / Flask | Modul za predikciju rezultata utakmica |
-
-Pored ovih, sistem koristi i sljedeće pomoćne servise:
-- **Email servis** (npr. SendGrid / Nodemailer) — za slanje notifikacija (NFR-10)
-- **Sistem za autentifikaciju** — JWT tokeni za upravljanje sesijama
-- **PDF generator** — za izvoz tabela i rasporeda (PB-39, UC-23)
-
----
-
-## 3. Odgovornosti komponenti
-
-### Frontend — React.js
-- Prikazuje korisnički interfejs prilagođen ulozi korisnika (gost, igrač, trener, organizator, administrator, vlasnik objekta)
-- Komunicira s backendom isključivo putem HTTP zahtjeva na REST API
-- Implementira responzivan dizajn za desktop i mobilne uređaje (NFR-06, NFR-14)
-- Rukuje lokalnim stanjem aplikacije i rutiranjem između stranica
-
-### Backend — Node.js + Express
-- Prima i obrađuje sve zahtjeve s frontenda
-- Implementira **poslovnu logiku**: upravljanje ligama, rasporedima, rezultatima, rezervacijama
-- Provodi autentifikaciju i autorizaciju putem **RBAC sistema** (NFR-05)
-- Komunicira s bazom podataka i AI servisom
-- Bilježi audit log svih važnih akcija korisnika (NFR-13)
-- Šalje zahtjeve email servisu za slanje notifikacija
-
-### Baza podataka — PostgreSQL
-- Trajno čuva sve podatke: korisnike, timove, lige, utakmice, rezultate, rezervacije, objekte
-- Garantuje integritet podataka kroz ograničenja (sprečavanje duplikata rezervacija — NFR-16)
-- Podržava redovni backup i restore (NFR-11)
-- Optimizovana za brzo filtriranje i pretraživanje rasporeda i rezultata (NFR-12)
-
-### AI servis — Python + Flask
-- Trenira model na historijskim podacima utakmica i formi timova
-- Na zahtjev backenda generiše predikcije ishoda nadolazećih utakmica
-- Vraća predikcije backendu koji ih proslijeđuje frontend aplikaciji
-- Ciljna tačnost predikcije: 60–70% (NFR-17)
-- Dostupan kao odvojeni interni mikroservis
+| Arhitekturni stil | Modularan monolith (MVP) | Brži razvoj u ranoj fazi; olakšava debugiranje i testiranje u timu; modularna struktura koda omogućava kasniju migraciju |
+| Komunikacija klijent–server | REST API (JSON) over HTTPS | Standardizovan, dobro podržan u svim razvojnim alatima, jednostavan za dokumentovanje putem OpenAPI/Swagger standarda |
+| CORS konfiguracija | Whitelist specifičnih origina | Sprečava neovlaštene cross-origin zahtjeve na API |
+| Autentifikacija | JWT (15 min) + refresh token (httpOnly cookie) | Kratko trajanje minimizuje rizik zloupotrebe; refresh token u httpOnly cookieu sprečava XSS krađu tokena |
+| Model pristupa | RBAC | Uloge su definirane na nivou backenda; sprečava neautorizovani pristup resursima (NFR-05) |
+| Baza podataka | PostgreSQL (relacijska) | Kompleksne relacije između entiteta zahtijevaju relacijski model s referencijalnim integritetom |
+| Frontend framework | React.js (finalna odluka) | Komponentna arhitektura prikladna za dinamičan UI s više uloga; velika zajednica |
+| AI biblioteka | scikit-learn | Dovoljna složenost za ciljanu tačnost 60–70%; lakše za održavanje od TensorFlow-a u MVP fazi |
+| AI data flow | Backend prosljeđuje snapshot podataka AI servisu | AI servis nema direktan pristup bazi — izolacija podataka, kontrolisani API, lakša zamjena modela |
+| Real-time ažuriranje | Polling (interval: 30s) | WebSocket zahtijeva dodatnu infrastrukturu; polling je dostatan jer se rezultati unose ručno |
+| Locking za rezervacije | Pessimistic locking na nivou baze | Sprečava race condition pri istovremenim zahtjevima za isti termin (NFR-16) |
+| Sigurnost | HTTPS + bcrypt + RBAC | Enkripcija komunikacije i lozinki te zaštita svih ruta (NFR-04, NFR-05) |
+| Notifikacije | Email async (SendGrid) | Najdostupniji kanal; asinhrona obrada ne blokira korisničke zahtjeve (NFR-10) |
+| PDF generisanje | Server-side, Puppeteer | Konzistentan output bez ovisnosti o browser okruženju |
+| Visoka dostupnost | PostgreSQL Primary + Replica | Replica kao failover za postizanje 99% uptime (NFR-03) |
 
 ---
 
-## 4. Tok podataka i interakcija
+## 7. Ograničenja i rizici
 
-Korisnik komunicira isključivo s frontend aplikacijom putem web preglednika. Frontend ne pristupa bazi podataka direktno — svaki zahtjev koji zahtijeva podatke ili akciju šalje se backendu kao HTTP poziv na odgovarajuću API rutu. Backend je centralna tačka sistema: prima zahtjev, provjerava autentifikaciju i autorizaciju korisnika, izvršava poslovnu logiku i po potrebi komunicira s bazom podataka, AI servisom ili email servisom. Rezultat se vraća frontendu koji ga prikazuje korisniku.
+### 7.1 Tehnička ograničenja
 
-Baza podataka nije direktno dostupna ni jednoj komponenti osim backendu, što osigurava jedinstven i kontrolisan pristup podacima. AI servis funkcioniše kao odvojeni interni servis koji reaguje samo na pozive backenda — ne prima zahtjeve s frontenda i nema direktan pristup bazi, već historijske podatke potrebne za predikcije dobija od backenda. Email servis se poziva asinhrono, što znači da slanje notifikacije ne blokira odgovor koji korisnik čeka.
+- **Nedostatak historijskih podataka** – AI servis zahtijeva dovoljnu količinu historijskih podataka o utakmicama i formi timova. U ranoj fazi, predikcije mogu biti neprecizne dok se baza ne popuni.
+- **Monolitni backend** – trenutna arhitektura otežava nezavisno skaliranje pojedinih modula. Ako sistem značajno poraste, može biti potrebna migracija prema mikroservisima.
+- **Skalabilnost baze** – relacijska baza može postati usko grlo pri velikom broju istovremenih upita, posebno pri generisanju tabela i filtriranju rasporeda (NFR-12).
+- **Polling kašnjenje** – promjena podataka nije vidljiva korisniku trenutno, već s maksimalnim kašnjenjem od 30 sekundi. Prihvatljivo za ovaj tip sistema.
 
-### Opis ključnih tokova
+### 7.2 Sigurnosni rizici
 
-**Tok autentifikacije (UC-01, UC-02):**
-Korisnik unosi kredencijale na frontendu → backend validira podatke i provjerava bazu → izdaje JWT token → frontend čuva token i šalje ga pri svakom narednom zahtjevu → backend provjerava token i ulogu korisnika (RBAC).
+- **Konflikt rezervacija** – istovremeni zahtjevi za isti termin mogu uzrokovati duplu rezervaciju. Riješeno pessimistic lockingom na nivou baze (NFR-16).
+- **JWT invalidacija** – standardni JWT tokeni ne mogu biti odmah poništeni. Riješeno kratkim trajanjem (15 min) i refresh token mehanizmom.
+- **Neautorizovani pristup** – pogrešna konfiguracija uloga može dovesti do curenja podataka. Zahtijeva temeljno testiranje RBAC sloja za svaku ulogu.
 
-**Tok zakazivanja utakmice (UC-07):**
-Organizator popunjava formu na frontendu → zahtjev ide na backend → backend provjerava dostupnost termina u bazi → sprema utakmicu → šalje notifikaciju relevantnim korisnicima putem email servisa.
+### 7.3 Arhitektonski rizici
 
-**Tok unosa rezultata i ažuriranja tabele (UC-08, UC-09):**
-Ovlašteni korisnik unosi rezultat → backend sprema rezultat u bazu → backend automatski izračunava bodove i ažurira tabelu → frontend prikazuje ažuriranu tabelu u realnom vremenu.
-
-**Tok rezervacije termina (UC-14, UC-16, UC-17):**
-Korisnik šalje zahtjev za rezervaciju → backend provjerava dostupnost → kreira zahtjev u bazi sa statusom "na čekanju" → vlasnik objekta pregleda zahtjev i odobrava/odbija → sistem mijenja status termina i šalje notifikaciju korisniku.
-
-**Tok AI predikcije (UC-21):**
-Korisnik otvara sekciju predikcija → frontend šalje zahtjev backendu → backend prosljeđuje zahtjev AI servisu → AI servis dohvata historijske podatke iz baze i generiše predikciju → backend vraća predikciju frontendu → prikazuje se korisniku kao informativni sadržaj.
+- **Ovisnost o jednom AI modelu** – ako odabrani pristup ne daje zadovoljavajuće rezultate, zamjena zahtijeva redizajn AI modula. Izolacija AI servisa umanjuje uticaj na ostatak sistema.
+- **Email kao jedini notifikacijski kanal** – korisnici koji ne prate email mogu propustiti važne obavijesti. U kasnijim sprintovima može se razmotriti in-app notifikacijski sistem.
+- **AI payload veličina** – pri velikom historijskom datasetu, JSON payload prema AI servisu može biti spor. Rješava se limitiranjem na posljednjih N utakmica po timu.
 
 ---
 
-## 5. Ključne tehničke odluke
+## 8. Otvorena pitanja
 
-| Odluka | Odabir | Razlog |
-|---|---|---|
-| Arhitekturni stil | Modularan monolith (MVP) | Brži razvoj u ranoj fazi; olakšava debugiranje i testiranje u timu |
-| Komunikacija klijent–server | REST API (JSON) | Standardizovan, dobro podržan, jednostavan za testiranje i dokumentovanje |
-| Autentifikacija | JWT (JSON Web Token) | Bez stanja na serveru (stateless), pogodno za skaliranje; podržava RBAC |
-| Baza podataka | PostgreSQL (relacijska) | Kompleksne relacije između entiteta (timovi, lige, utakmice, rezervacije) zahtijevaju relacijski model; podrška za transakcije i integritet |
-| Frontend framework | React.js | Komponentna arhitektura, velika zajednica, pogodna za dinamičan UI s više uloga |
-| AI servis | Odvojen Python/Flask servis | Izolacija AI logike od poslovne logike; lakša zamjena modela bez uticaja na ostatak sistema |
-| Sigurnost | HTTPS + bcrypt + RBAC | Zahtjevi NFR-04 i NFR-05; enkripcija lozinki i zaštita svih ruta |
-| Notifikacije | Email (async) | Najdostupniji kanal za sve uloge korisnika; zadovoljava NFR-10 (max 1 min kašnjenje) |
+| Pitanje | Status |
+|---|---|
+| Hosting i deployment infrastruktura | Nije odlučeno — cloud, VPS ili lokalni server? Utiče na CI/CD pipeline (PB-16) i konfiguraciju replika baze. |
+| Strategija za inicijalne podatke | Kako popuniti bazu s dovoljno historijskih podataka za AI komponentu prije prvog produkcijskog korišćenja? |
+| Monitoring i alerting | Koji alat za praćenje zdravlja sistema (uptime, greške, performanse)? Potrebno definisati prije deploymenta. |
+| Notifikacijski kanal | Ostati samo na email notifikacijama ili dodati in-app obavještenja u kasnijim sprintovima? |
 
 ---
-
-## 6. Ograničenja i rizici arhitekture
-
-| # | Ograničenje / Rizik | Uticaj | Moguće rješenje |
-|---|---|---|---|
-| 1 | Monolitna arhitektura otežava nezavisno skaliranje pojedinih modula | Srednji | Planirati modularnu strukturu koda radi lakše migracije na mikroservise u budućnosti |
-| 2 | AI servis zahtijeva dovoljno historijskih podataka za kvalitetne predikcije | Visok | Koristiti javno dostupne sportske datasete u ranoj fazi; jasno obavijestiti korisnike da su predikcije informativne |
-| 3 | Istovremeni zahtjevi za rezervaciju mogu uzrokovati konflikt podataka | Visok | Implementirati optimistic locking ili database-level locking za rezervacije (NFR-16) |
-| 4 | JWT tokeni ne mogu biti invalidovani bez dodatne infrastrukture (token blacklist) | Srednji | Implementirati kratko trajanje tokena + refresh token mehanizam |
-| 5 | Email notifikacije mogu biti označene kao spam | Nizak | Koristiti provjerenog email providera (npr. SendGrid) s autentifikovanom domenom |
-| 6 | Responzivan dizajn zahtijeva dodatno testiranje na različitim uređajima | Nizak | Integrirati testiranje na različitim browserima u Definition of Done (NFR-14) |
-
----
-
-## 7. Otvorena pitanja
-
-- **Koji JavaScript framework za frontend?** — React.js je predložen, ali tim treba donijeti finalnu odluku i evidentirati je u Decision Logu.
-- **Hosting i deployment infrastruktura** — Gdje će sistem biti hostovan (cloud, VPS, lokalni server)? Ovo utiče na CI/CD pipeline (PB-16).
-- **Konkretna biblioteka za AI model** — scikit-learn, TensorFlow Lite ili drugi? Ovisi o raspoloživim podacima i složenosti modela.
-- **Real-time ažuriranje tabele** — Koristiti polling ili WebSocket konekciju za prikaz rezultata u realnom vremenu?
-- **Strategija za seed podatke** — Kako inicijalno popuniti bazu dovoljnim količinama historijskih podataka za AI komponentu?
-
-
-## 8. Veza sa Risk Registerom
-
-Ograničenja i rizici navedeni u ovoj sekciji povezani su sa detaljno definisanim rizicima u Risk Register dokumentu.
-
-Arhitekturne odluke sistema direktno su povezane sa identifikovanim rizicima iz Risk Register dokumenta, kako bi se smanjila vjerovatnoća njihovog nastanka i njihov uticaj na sistem.
-
-U nastavku su prikazane ključne veze između arhitekture i identifikovanih rizika:
-
-- **R2 (Netačan prikaz podataka):**  
-  Backend sloj implementira validaciju i kontrolu podataka, dok se kroz jasno definisan API osigurava konzistentan prikaz između baze i frontend-a.
-
-- **R3 (Filtriranje i performanse):**  
-  Optimizacija upita i razdvajanje logike između frontend-a i backend-a smanjuju rizik pogrešnih rezultata i usporenja sistema.
-
-- **R6 (RBAC sigurnost):**  
-  Auth & RBAC komponenta osigurava da svaki API poziv prolazi kroz provjeru dozvola, čime se sprječava neovlašten pristup podacima.
-
-- **R7 (Autentifikacija i sesije):**  
-  Korištenje JWT tokena omogućava sigurno i skalabilno upravljanje korisničkim sesijama.
-
-- **R10 i R11 (Uvoz podataka):**  
-  Data Ingestion servis implementira parsiranje, validaciju i mapiranje podataka prije njihovog unosa u bazu.
-
-- **R12 i R13 (AI nepouzdanost):**  
-  AI modul je izdvojen kao zaseban servis, što omogućava njegovu nezavisnu evaluaciju, zamjenu i unapređenje bez uticaja na ostatak sistema.
-
-- **R14 (Notifikacije):**  
-  Notification Engine centralizuje generisanje i slanje upozorenja, čime se smanjuje rizik nepravilnog obavještavanja korisnika.
-
-- **R18 (Model baze podataka):**  
-  Relacijska baza sa jasno definisanim odnosima smanjuje rizik nekonzistentnosti i grešaka u povezivanju podataka.
-
-- **R21 (Dostupnost sistema):**  
-  Docker kontejnerizacija i planirani monitoring omogućavaju veću otpornost sistema i lakši oporavak u slučaju greške.
-
-- **R22 (Kašnjenje razvoja):**  
-  Modularna arhitektura omogućava paralelan rad više članova tima i smanjuje zavisnosti između komponenti.
-
 
