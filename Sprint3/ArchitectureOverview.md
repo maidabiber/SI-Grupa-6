@@ -117,7 +117,7 @@ Baza na nivou ograničenja (constraints) sprečava kreiranje duplih rezervacija 
 
 ## 3. Dijagram arhitekture
 
-![Architecture Diagram](./SI-ArchitectureOverview_drawio.png)
+![Architecture Diagram](./SI-ArchitectureOverview.drawio.png)
 
 ---
 
