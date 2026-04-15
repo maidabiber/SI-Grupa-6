@@ -771,7 +771,7 @@ Omogućava efikasno upravljanje rezervacijama.
 **Acceptance Criteria:**
 - Vlasnik vidi hronološku listu svih rezervacija (i automatskih i onih na čekanju).
 - Sistem jasno označava status svake rezervacije (Potvrđeno, Na čekanju, Otkazano).
-- Za svaku rezervaciju vidi se profil korisnika i njegova istorija prekršaja (broj nepojavljivanja).
+- Za svaku rezervaciju vidi se profil korisnika i njegova historija prekršaja (broj nepojavljivanja).
 - Sistem omogućava filtriranje rezervacija po datumu i specifičnom terenu/sali.
 
 ### 15.1 USER STORY – Ručna verifikacija (Korisnici sa liste nepouzdanih)
@@ -977,43 +977,70 @@ Kao registrovani korisnik (Igrač/Trener), želim otkazati rezervisani termin, k
 
 
 ---
-
-## 20. USER STORY – Lista čekanja za termine
+## 20. USER STORY – Upravljanje listama čekanja i verifikacijom
 
 **ID storyja:** US-20
 
-**Naziv storyja:** Lista čekanja za zauzet termin
+**Naziv storyja:** Upravljanje zahtjevima na čekanju
+
+**Opis:** Kao sistem, želim omogućiti funkcionalnost "čekanja" za termine koji nisu odmah dostupni za automatsku potvrdu (bilo zbog zauzetosti termina ili zbog potrebe za ručnom provjerom korisnika), kako bi se osigurala maksimalna popunjenost i sigurnost objekta.
+
+**Poslovna vrijednost:**
+- Centralizuje logiku čekanja i verifikacije.
+- Povećava iskorištenost kapaciteta objekta.
+- Pruža vlasniku dodatni sloj sigurnosti.
+
+**Prioritet:** Visok
+
+**Veze:** US-19
+
+**Acceptance Criteria:**
+- Sistem mora razlikovati dvije vrste čekanja: listu čekanja za popunjen termin i listu za ručnu verifikaciju.
+- Korisnik mora dobiti povratnu informaciju o statusu svog zahtjeva u realnom vremenu.
+- Svaka promjena statusa na čekanju mora generisati notifikaciju relevantnim stranama (vlasnik/korisnik).
+
+---
+
+### 20.1 USER STORY – Lista čekanja za zauzet termin
+
+**ID storyja:** US-20.1
+
+**Naziv storyja:** Prijava na listu čekanja za zauzet termin
 
 **Opis:**
 Kao korisnik (Igrač/Trener), želim da se prijavim na listu čekanja za već **zauzet** termin, kako bih bio obaviješten ako se taj termin oslobodi. 
 
 **Poslovna vrijednost:**
-- Povećava šansu za popunjavanje termina nakon iznenadnog otkazivanja
-- Poboljšava korisničko iskustvo pružanjem alternative
-
-**Prioritet:** Srednji
-
-**Veze:** US-19
+- Povećava šansu za popunjavanje termina nakon iznenadnog otkazivanja.
+- Poboljšava korisničko iskustvo pružanjem alternative.
 
 **Acceptance Criteria:**
-- Kada korisnik vidi termin koji je "Zauzet", sistem mora ponuditi opciju "Prijavi me na listu čekanja"
-- Sistem mora evidentirati korisnika na listu za taj specifičan termin i datum
-- Kada se taj termin otkaže (prema US-16), sistem mora poslati notifikaciju svim korisnicima sa liste čekanja
-- Sistem ne smije automatski rezervisati termin, već omogućiti korisniku sa liste da ga sam prvi rezerviše
-- Korisnik treba imati mogućnost da se ukloni sa liste čekanja ako mu termin više nije potreban
+- Kada korisnik vidi termin koji je "Zauzet", sistem mora ponuditi opciju "Prijavi me na listu čekanja".
+- Sistem mora evidentirati korisnika na listu za taj specifičan termin i datum.
+- Kada se taj termin otkaže (shodno US-15.2 ili US-19), sistem šalje notifikaciju svim korisnicima sa liste čekanja.
+- Sistem ne smije automatski rezervisati termin, već omogućiti korisnicima sa liste da ga sami prvi rezervišu po principu "brzog prsta".
+- Korisnik treba imati mogućnost da se ukloni sa liste čekanja ako mu termin više nije potreban.
 
+---
 
-### 20.1  USER STORY – Lista čekanja za nepouzdane korisnike 
-**ID storyja:** US-20
+### 20.2 USER STORY – Uslovna rezervacija (Lista za verifikaciju)
 
-**Naziv storya:** Uslovna rezervacija za nepouzdane korisnike
-**Opis:** Kao nepouzdan korisnik, želim pokušati rezervisati slobodan termin, pri čemu moja rezervacija ide na listu čekanja kako bi vlasnik sportskog objekta obavio ručnu provjeru
+**ID storyja:** US-20.2
+
+**Naziv storyja:** Uslovna rezervacija za nepouzdane korisnike
+
+**Opis:** Kao nepouzdan korisnik (korisnik sa historijom prekršaja), želim pokušati rezervisati slobodan termin, pri čemu moja rezervacija ide na listu čekanja kako bi vlasnik sportskog objekta obavio ručnu provjeru.
+
+**Poslovna vrijednost:**
+- Smanjuje rizik od ponovnog nepojavljivanja.
+- Daje vlasniku kontrolu nad tim ko koristi njegove resurse.
 
 **Acceptance Criteria:**
+- Kada korisnik sa liste nepouzdanih pokuša rezervaciju, sistem je ne potvrđuje automatski već je šalje u sekciju "Na čekanju".
 - Korisnik dobija jasnu poruku: "Vaša rezervacija zahtijeva odobrenje vlasnika zbog prethodnih prekršaja."
-- Vlasnik sportskog objekta dobija hitnu notifikaciju da ima zahtjev na čekanju.
-- Vlasnik ima vremenski rok (1 h) da odluči.
-- Termin je "blokiran" za druge dok vlasnik ne odbije ovog korisnika.
+- Vlasnik sportskog objekta dobija hitnu notifikaciju da ima novi zahtjev koji čeka ručnu provjeru.
+- Vlasnik ima vremenski rok od 1h da odluči o zahtjevu (Odobri/Odbij).
+- Termin je privremeno "blokiran" za druge dok vlasnik ne donese odluku ili dok ne istekne 1h (nakon čega sistem automatski odbija zahtjev).
 
 ---
 
