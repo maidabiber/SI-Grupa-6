@@ -4,7 +4,7 @@
 
 ## 1. Kratak opis arhitektonskog pristupa
 
-Sistem je zasnovan na **troslojevitoj klijent-server arhitekturi** (Three-Tier Architecture) s jasnom podjelom odgovornosti između prezentacijskog sloja, poslovne logike i sloja podataka. Komunikacija između klijenta i servera odvija se isključivo putem **REST API-ja**, što omogućava nezavisnost frontend i backend komponenti.
+Sistem je zasnovan na **troslojevitoj arhitekturi** (Three-Tier Architecture) s jasnom podjelom odgovornosti između prezentacijskog sloja, poslovne logike i sloja podataka. Komunikacija između klijenta i servera odvija se isključivo putem **REST API-ja**, što omogućava nezavisnost frontend i backend komponenti.
 
 Arhitektura je dizajnirana da podrži zahtjeve definisane u NFR dokumentu — posebno skalabilnost (NFR-02), sigurnost kroz RBAC (NFR-05), pouzdanost sa 99% uptime (NFR-03) i responzivan interfejs (NFR-06). Sistem predviđa i integrisanu **AI komponentu** za predikciju rezultata (NFR-17) kao odvojeni servis koji komunicira s ostatkom sistema putem internog API poziva.
 
