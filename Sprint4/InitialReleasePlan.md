@@ -119,8 +119,6 @@ Dodati napredne funkcionalnosti i završne komponente sistema koje poboljšavaju
 - PB-37: Implementirati AI predikcije rezultata i poretka na tabeli 
 - PB-38: Responzivni UI  
 - PB-39: PDF izvoz podataka  
-- PB-40: Testiranje sistema  
-
 
 ### Zavisnosti
 - Stabilan sistem iz prethodnih release-ova  
@@ -136,8 +134,7 @@ Dodati napredne funkcionalnosti i završne komponente sistema koje poboljšavaju
 - Sprint 11: napredne funkcionalnosti i finalizacija  
 
 ### Vrijednost
-Finalni release unapređuje sistem kroz bolje korisničko iskustvo, izvještavanje i stabilnost, čime se dobija kompletna verzija spremna za produkcijsko korištenje.
-
+Finalni release unapređuje sistem kroz bolje korisničko iskustvo, izvještavanje, stabilnost i završni deployment, čime se dobija kompletna verzija sistema spremna za produkcijsko korištenje.
 ---
 
 ## ZAKLJUČAK
