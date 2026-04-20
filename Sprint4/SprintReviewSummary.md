@@ -22,8 +22,9 @@ Završna validacija human-first faze projekta i uspostavljanje tehničkih temelj
 
 | PBI ID  | Naziv                                    | Odgovorna osoba/e                          | Napomena                                                                                                                                                                                         |
 |---------|------------------------------------------|--------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| PB-14 | Definition of Done                       | Anes Mirvić, Irma Topčagić                |                                                                                                        |
-                                             
+| PB-14 | Definition of Done                       | Anes Mirvić, Irma    Topčagić                |                                                                                                        |
+| PB-15 | Struktura repozitorija i osnovni tehnički setup |                       Ilma Hindija, Zeir Mašić
+                                   
 
 ---
 
@@ -50,7 +51,17 @@ Nije bilo blokatora.
 
 ## Ključne odluke donesene u sprintu
 
-- 
+- Odabrali smo GitHub Flow jer je jednostavan i omogućava brz razvoj uz kontinuirani deployment.
+- Projekat je organizovan kao monorepo kako bi svi servisi bili na jednom mjestu i lakši za upravljanje.
+- Sistem je podijeljen na više servisa kako bi se omogućila bolja skalabilnost i odvajanje odgovornosti.
+- AI komponenta je izdvojena u poseban servis zbog korištenja Python ekosistema i lakšeg razvoja modela.
+- Korišten je moderan tech stack (React, Node.js, PostgreSQL) radi brzine razvoja i dobre podrške zajednice.
+- Docker je uveden kako bi se osigurala konzistentnost između razvojnih i produkcijskih okruženja.
+- Nginx se koristi kao reverse proxy radi centralizovanog upravljanja zahtjevima i veće sigurnosti.
+- CI/CD pipeline je automatizovan kako bi se svaka promjena brzo testirala i deployala.
+- VPS je odabran kao hosting rješenje zbog niske cijene i potpune kontrole nad sistemom.
+- Uvedena su odvojena okruženja (development, staging, production) radi sigurnijeg razvoja i testiranja.
+- Sigurnosni mehanizmi poput JWT-a i hashiranja lozinki implementirani su od početka razvoja.
 
 ---
 

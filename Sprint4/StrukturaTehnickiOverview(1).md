@@ -117,6 +117,8 @@ Tim je razmatrao i GitLab Flow te Gitflow, ali su odbačeni iz sljedećih razlog
 
 **Struktura projekta (frontend):**
 
+
+
 ```
 frontend/
 ├── public/
@@ -128,10 +130,13 @@ frontend/
 │   ├── context/      # React Context (auth stanje, korisnička uloga)
 │   ├── utils/        # helper funkcije
 │   └── main.jsx      # entry point
+├── Dockerfile        # Docker konfiguracija
 ├── .env.example
 ├── vite.config.js
 └── package.json
+
 ```
+
 
 ---
 

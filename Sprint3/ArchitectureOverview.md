@@ -95,9 +95,9 @@ Napomena: AI servis je u potpunosti hostovan lokalno unutar infrastrukture siste
 | Komponenta | Tehnologija |
 |---|---|
 | Baza podataka | PostgreSQL (Primary + Replica) |
-| Data Access Layer (DAL) | Sequelize ORM |
+| Data Access Layer (DAL) | Prisma ORM |
 
-Centralno trajno skladište svih podataka sistema. Jedino backend ima direktan pristup bazi, i to isključivo **kroz Sequelize ORM** — nigdje u backend kodu ne pišu se sirovi SQL upiti direktno.
+Centralno trajno skladište svih podataka sistema. Jedino backend ima direktan pristup bazi, i to isključivo kroz **Prisma Client**  čime se eliminiše pisanje sirovih SQL upita i osigurava tipiziran pristup podacima.
 
 #### PostgreSQL
 
@@ -109,24 +109,26 @@ Centralno trajno skladište svih podataka sistema. Jedino backend ima direktan p
 
 Baza na nivou ograničenja (constraints) sprečava kreiranje duplih rezervacija za isti teren i vremenski interval putem pessimistic lockinga (NFR-16), te osigurava referencijalni integritet između entiteta. PostgreSQL Primary + Replica konfiguracija osigurava visoku dostupnost i failover za postizanje 99% uptime (NFR-03, NFR-11).
 
-#### Sequelize ORM — Data Access Layer
+#### Prisma ORM — Data Access Layer
 
-Sequelize je ORM (Object-Relational Mapper) za Node.js koji služi kao jedini posrednik između backend poslovne logike i PostgreSQL baze podataka. Uvođenjem Sequelizea kao DAL-a postiže se jasna granica između sloja poslovne logike i sloja podataka.
+Prisma ORM — Data Access Layer
+Prisma je moderan "Next-generation" ORM koji služi kao primarni interfejs između backend logike i baze podataka. Za razliku od tradicionalnih ORM-ova, Prisma koristi deklarativni **Prisma Schema** fajl za definiciju modela.
 
-**Zašto Sequelize:**
-- Nativna podrška za PostgreSQL s dobro poznatim driver-om (`pg`)
-- Kompatibilan s Node.js + Express stackom koji je odabran za backend
-- Modeli se definišu kao JavaScript klase, što je konzistentno s ostatkom backend koda
-- Ugrađena zaštita od SQL injection napada kroz parametrizovane upite
-- Podrška za migracije (`sequelize-cli`) — verzionisane izmjene sheme baze
+**Zašto Prisma:**
 
-**Uloga Sequelizea u sistemu:**
+- Type-safety: Automatski generisani Prisma Client pruža kompletan autocompletion i provjeru tipova (TypeScript/JavaScript), što drastično smanjuje broj bugova pri radu s bazom.
 
-Svaki entitet iz domenskog modela (Korisnik, Tim, Liga, Utakmica, Rezervacija, itd.) definiše se kao Sequelize Model. Model opisuje kolone tablice, tipove podataka, validacije na nivou modela i veze prema drugim modelima (`hasMany`, `belongsTo`, `belongsToMany`).
+- Prisma Schema (.prisma): Jedinstven, čitljiv izvor istine za definiciju tabela i relacija.
+
+- Prisma Studio: Intuitivan GUI za brz pregled i editovanje podataka u bazi tokom razvoja.
+
+- Sigurnost: Nativna zaštita od SQL injection-a kroz parametrizovane upite koje generiše klijent.
+
+**Uloga Prisme u sistemu:**
+Svaki entitet (Korisnik, Tim, Utakmica) definisan je u schema.prisma fajlu. Relacije poput 1:N (jedna liga ima mnogo utakmica) ili N:M (timovi i igrači) definisane su deklarativno, a Prisma automatski generiše potrebne join tabele i optimizovane upite.
 
 **Migracije:**
-
-Sve izmjene sheme baze (dodavanje kolona, kreiranje tabela, izmjena ograničenja) provode se isključivo kroz Sequelize migracije (`sequelize-cli`). Ovo osigurava da su izmjene verzionisane, ponovljive i reverzibilne u svim okruženjima (development, staging, production).
+Sve izmjene strukture baze vrše se putem Prisma Migrate. Svaka promjena u schema.prisma generiše novi SQL migracioni fajl, omogućavajući verzionisanje baze podataka identično verzionisanju koda.
 
 ---
 
