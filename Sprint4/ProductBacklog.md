@@ -34,9 +34,8 @@ Ovaj dokument sadrži listu stavki koje je potrebno završiti u okviru projekta.
 | PB-12 | Izraditi Architecture Overview | Definisanje osnovnog arhitektonskog pravca sistema (tehnologije, slojevi, komunikacija) | Technical Task | Visok | L | Done | Sprint 3 | Arhitektura mora proizlaziti iz zahtjeva |
 | PB-13 | Definisati Test Strategy | Izrada strategije testiranja sistema (šta, kako i kada se testira) | Documentation | Srednji | M | Done | Sprint 3 | - |
 | PB-14 | Definisati Definition of Done | Izrada dokumenta koji definiše kada se stavka smatra završenom | Documentation | Nizak | S | Done | Sprint 4 | - |
-| PB-15 | Definisanje strukture repozitorija i tehnički setup | Odabir branching strategije, definisanje kompletnog tech stack-a, te planiranje infrastrukture, OS-a, web/app servera i načina deploymenta uz prateću dokumentaciju. | Technical Task | Visok | L | Done | Sprint 4 | - |
-| PB-15.1 | Postavljanje tehničkog skeletona | Kreiranje osnovne strukture projekta na osnovu usvojenog tehničkog setupa. | Technical Task | Visok | L | Done | Sprint 4 | - |
-| PB-16 | Setup razvojnog okruženja | Postavljanje razvojnog i produkcijskog servera te automatizacija objave (CI/CD) | Technical Task | Visok | M | Done | Sprint 4 | - |
+| PB-15 | Postavljanje tehničkog skeletona | Inicijalizacija projekta i organizacija foldera prema standardima odabrane arhitekture.| Technical Task | Visok | L | Done | Sprint 4 | - |
+| PB-16 | Definisanje strukture repozitorija i tehnički setup | Odabir branching strategije, definisanje kompletnog tech stack-a, te planiranje infrastrukture, OS-a, web/app servera i načina deploymenta uz prateću dokumentaciju.| Technical Task | Visok | L | Done | Sprint 4 | - |
 | PB-17 | Dizajn baze podataka | Definisanje ER dijagrama i relacija između entiteta sistema | Technical Task | Visok | L | To-Do | Sprint 5 | Mora biti urađeno prije početka implementacije|
 | PB-17.1 | Postavljanje i konfiguracija baze podataka | Kreiranje fizičke strukture baze podataka kroz migracije, uključujući tabele, relacije i inicijalne uloge | Technical Task | Visok | M | To-Do | Sprint 5 | - |
 | PB-18 | API dokumentacija | Definisanje ruta i formata podataka | Technical Task | Srednji | M | To-Do | Sprint 5 | Radi olakšanja implementacije|
