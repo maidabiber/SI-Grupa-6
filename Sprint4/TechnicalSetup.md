@@ -60,8 +60,11 @@ tip(opseg): kratki opis u imperativu
 Primjeri:
 feat(auth): dodati registraciju korisnika
 fix(rezervacije): ispraviti duplu rezervaciju istog termina
+refactor: refaktorisanje bez promjene funkcionalnosti
 chore(ci): podesiti GitHub Actions workflow
+test:     dodavanje ili izmjena testova
 docs(api): dokumentovati endpoint za login
+
 ```
 
 **Tipovi:** `feat` / `fix` / `chore` / `docs` / `test` / `refactor`
