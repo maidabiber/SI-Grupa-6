@@ -32,14 +32,13 @@ Završna validacija human-first faze projekta i uspostavljanje tehničkih temelj
 
 ## Šta nije završeno
 
-
-
+Sve planirane stavke za Sprint 4 su uspješno završene.
 ---
 
 ## Demonstrirani artefakti
 
-- **Definition of Done** 
-- **Initial Release Plan** 
+- **Definition of Done:** Prikaz kriterija koji će se koristiti za validaciju svakog budućeg zadatka
+- **Initial Release Plan:** Prezentacija hronološkog slijeda razvoja funkcionalnosti
 - **TechnicalSetup** 
 - **Repozitorij (GitHub)**
 
@@ -47,7 +46,7 @@ Završna validacija human-first faze projekta i uspostavljanje tehničkih temelj
 
 ## Glavni problemi i blokeri
 
-Nije bilo blokatora. 
+Odabir načina deploymenta. 
 
 ---
 

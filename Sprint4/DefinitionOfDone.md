@@ -1,59 +1,38 @@
 # Definition of Done (DoD)
 
-Stavka je **Done** isključivo kada su **svi** sljedeći kriteriji u potpunosti ispunjeni.
-
-*Važi za sve stavke u svim sprintovima — Sistem za upravljanje sportskim terminima i ligama.*
+## Sistem za upravljanje sportskim terminima i ligama
 
 ---
 
-# Kriteriji završetka
+Stavka je **Done** isključivo kada su **svi** sljedeći kriteriji u potpunosti ispunjeni :
 
-### 1. Funkcionalnost je implementirana
+Funkcionalnost:
 
-Implementacija završena u skladu sa opisom i poslovnom vrijednošću definisanom u User Story-ju.
+● Funkcionalnost je implementirana ili dokumentovana prema dogovoru
+● Svi definisani Acceptance Criteria su u potpunosti ispunjeni
+● Poslovna pravila sistema i uloge su ispoštovane
 
-### 2. Acceptance criteria su ispunjeni
+Tehnička ispravnost:
 
-Svi acceptance criteria su implementirani, testirani i potvrđeni.
+● Backend i baza funkcionišu bez grešaka; API validacija je aktivna
+● Autentifikacija, autorizacija i sigurnosne mjere su implementirane
+● UI komponente su ispravne i konzistentne sa stilom aplikacije
+● Nije uvedena vidljiva degradacija performansi
+● Build prolazi bez grešaka
 
-### 3. Radi u dev okruženju
+Testiranje i kvalitet:
 
-Funkcionalnost je uspješno pokrenuta i testirana u razvojnom okruženju.
+● Funkcionalnost je adekvatno testirana (prateći definisanu testnu strategiju)
+● Pokriveni su edge case-ovi (neispravni unosi, prazna polja, neautorizovan pristup)
+● Provedeno je regresijsko testiranje — da nova funkcionalnost nije pokvarila postojeću
 
-### 4. Stavka je pregledana unutar tima
+Kod i pregled:
 
-Izvršen code review i pregled funkcionalnosti od strane tima.
+● Kod je pregledan unutar tima (code review završen, pull request odobren)
+● Kod je integrisan u glavni branch i pushan na repozitorij
 
-### 5. Testiranje je izvršeno
+Dokumentacija i isporuka:
 
-Svi planirani testovi (unit, integracijski ili ručni) su uspješno izvršeni bez grešaka.
-
-### 6. Performanse su prihvatljive
-Funkcionalnost radi u prihvatljivom vremenskom okviru i ne uvodi performansne probleme.
-
-### 7. Evidentirano u relevantnim artefaktima
-
-Stavka i sve relevantne promjene su evidentirane u alatima i dokumentaciji projekta.
-
-### 8. Sigurnost je provjerena
-
-Implementacija zadovoljava sigurnosne zahtjeve sistema.
-
-### 9. UI/UX konzistentnost je osigurana
-
-UI komponente su usklađene sa postojećim stilom aplikacije.
-
-### 10. Kod je integrisan u glavni branch
-Implementacija je uspješno integrisana u zajednički repozitorij projekta.
-
-### 11. Tim je obaviješten
-
-Ostali članovi tima su obaviješteni ako njihov rad zavisi od implementirane funkcionalnosti.
-
-### 12. Stavka je spremna za Sprint Review
-
-Implementirana funkcionalnost je demonstrabilna i pripremljena za prikaz.
-
-### 13. Izvršena je završna provjera
-
-Nakon integracije, izvršena je finalna provjera stavke.
+● Promjene su evidentirane u relevantnim projektnim artefaktima
+● Funkcionalnost je spremna za demonstraciju u sprint review-u
+● Product Owner potvrđuje da je User Story završen
