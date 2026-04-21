@@ -34,6 +34,7 @@ Ovaj dokument sadrži listu stavki koje je potrebno završiti u okviru projekta.
 | PB-12 | Izraditi Architecture Overview | Definisanje osnovnog arhitektonskog pravca sistema (tehnologije, slojevi, komunikacija) | Technical Task | Visok | L | Done | Sprint 3 | Arhitektura mora proizlaziti iz zahtjeva |
 | PB-13 | Definisati Test Strategy | Izrada strategije testiranja sistema (šta, kako i kada se testira) | Documentation | Srednji | M | Done | Sprint 3 | - |
 | PB-14 | Definisati Definition of Done | Izrada dokumenta koji definiše kada se stavka smatra završenom | Documentation | Nizak | S | Done | Sprint 4 | - |
+| PB-14.1 | Izrada Initial Release Plana | Definisanje plana isporuke kroz sprintove. Grupisanje funkcionalnosti u "Potentially Shippable Product Increments" uz detaljno obrazloženje poslovne vrijednosti svakog release-a. | Documentation | Srednji | M | Done | Sprint 4 | - |
 | PB-15 | Postavljanje tehničkog skeletona | Inicijalizacija projekta i organizacija foldera prema standardima odabrane arhitekture.| Technical Task | Visok | L | Done | Sprint 4 | - |
 | PB-16 | Definisanje strukture repozitorija i tehnički setup | Odabir branching strategije, definisanje kompletnog tech stack-a, te planiranje infrastrukture, OS-a, web/app servera i načina deploymenta uz prateću dokumentaciju.| Technical Task | Visok | L | Done | Sprint 4 | - |
 | PB-17 | Dizajn baze podataka | Definisanje ER dijagrama i relacija između entiteta sistema | Technical Task | Visok | L | To-Do | Sprint 5 | Mora biti urađeno prije početka implementacije|

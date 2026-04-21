@@ -23,6 +23,7 @@ Završna validacija human-first faze projekta i uspostavljanje tehničkih temelj
 | PBI ID  | Naziv                                    | Odgovorna osoba/e                          | Napomena                                                                                                                                                                                         |
 |---------|------------------------------------------|--------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | PB-14 | Definition of Done                       | Anes Mirvić, Irma    Topčagić                |                                                                                                        |
+|PB-14.1| Initial Release Plan| Mehdi Zaimović, Semir Jamaković||
 | PB-15| Postavljanje tehničkog skeletona |  Maida Biber, Amna Kerla|
 | PB-16 | Struktura repozitorija i osnovni tehnički setup |                       Ilma Hindija, Zeir Mašić  |
 
@@ -32,7 +33,7 @@ Završna validacija human-first faze projekta i uspostavljanje tehničkih temelj
 
 ## Šta nije završeno
 
-Sve planirane stavke za Sprint 4 su uspješno završene.
+#### Sve planirane stavke za Sprint 4 su uspješno završene.
 ---
 
 ## Demonstrirani artefakti
