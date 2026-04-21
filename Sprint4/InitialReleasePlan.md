@@ -147,8 +147,8 @@ Release se smatra završenim isključivo nakon uspješno provedenog QA testiranj
 - Sprint 11: napredne funkcionalnosti i finalizacija  
 
 ### Vrijednost
-
 Finalni release unapređuje sistem kroz bolje korisničko iskustvo, izvještavanje, stabilnost i završni deployment, čime se dobija kompletna verzija sistema spremna za produkcijsko korištenje.
+
 ---
 
 ## ZAKLJUČAK
