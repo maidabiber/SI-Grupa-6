@@ -354,5 +354,6 @@ Svaki merge u `main` granu automatski pokreće **GitHub Actions** workflow koji 
 
 Docker image-i se verzionišu pomoću tagova (npr. latest, v1.0.0).
 
-U slučaju neuspješnog deploymenta, sistem omogućava rollback na prethodnu stabilnu verziju image-a.
----
+U slučaju neuspješnog 
+deploymenta, sistem omogućava rollback na prethodnu stabilnu verziju image-a.
+
