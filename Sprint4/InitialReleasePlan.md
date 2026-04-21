@@ -10,7 +10,7 @@ Plan uključuje četiri ključna release-a:
 - Release 3: nakon Sprinta 10  
 - Release 4: nakon Sprinta 11  
 
-Ovakva struktura omogućava postepeno uvođenje funkcionalnosti – od osnovne platforme, preko upravljanja takmičenjima i resursima, do naprednih funkcionalnosti i finalizacije sistema.
+Svaki release se smatra završenim isključivo nakon uspješno provedenog QA testiranja i odobrenja od strane tima.
 
 ---
 
@@ -33,9 +33,6 @@ Implementirati osnovnu funkcionalnost sistema koja omogućava autentifikaciju ko
 - PB-12: Architecture overview  
 - PB-17: Dizajn baze podataka  
 - PB-15, PB-16: Tehnička infrastruktura  
-
-### Uslov isporuke
-Release se smatra završenim isključivo nakon uspješno provedenog QA testiranja i odobrenja od strane tima.
 
 ### Glavni rizici
 - R-01: Neispravna autentifikacija  
@@ -66,9 +63,6 @@ Omogućiti kompletno upravljanje sportskim takmičenjima kroz raspored utakmica,
 ### Zavisnosti
 - Postojeći timovi i lige (Release 1)  
 - Validan model takmičenja  
-
-### Uslov isporuke
-Release se smatra završenim isključivo nakon uspješno provedenog QA testiranja i odobrenja od strane tima.
 
 ### Glavni rizici
 - R-03: Nekonzistentni podaci u tabeli  
@@ -101,10 +95,6 @@ Omogućiti upravljanje sportskim objektima i rezervaciju termina, čime sistem d
 - Autentifikacija i korisnici (Release 1)  
 - Sistem timova i liga (Release 2)  
 
-### Uslov isporuke
-Release se smatra završenim isključivo nakon uspješno provedenog QA testiranja i odobrenja od strane tima.
-
-
 ### Glavni rizici
 - R-05: Duple rezervacije  
 - R-18: Kompleksna logika rezervacija  
@@ -134,8 +124,6 @@ Dodati napredne funkcionalnosti i završne komponente sistema koje poboljšavaju
 - Stabilan sistem iz prethodnih release-ova  
 - Dostupni historijski podaci  
 
-### Uslov isporuke
-Release se smatra završenim isključivo nakon uspješno provedenog QA testiranja i odobrenja od strane tima.
 
 ### Glavni rizici
 - R-07: Netačne AI predikcije  
