@@ -10,4 +10,4 @@ Ovaj dokument sadrži pregled planiranih i završenih zadataka za Sprint 5.
 | PB-18 | Izrada API dokumentacije |  | To-Do | Ažurirat će se kontinuirano tokom razvoja |
 | PB-19 | Izrada AI Usage Log i Decision Log dokumenata | Amna Kerla |  To-Do | - |
 | PB-20 | Implementacija registracije uz validacijske testove | | To-Do | - |
-| PB-21 | Implementacija login/logout modula uz testove |  |  To-Do | - |
+| PB-21 | Implementacija login/logout modula uz testove | Anes Mirvić |  To-Do | - |
