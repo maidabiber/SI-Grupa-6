@@ -21,9 +21,11 @@ Stavka je **Done** isključivo kada su **svi** sljedeći kriteriji u potpunosti 
 
 ### Testiranje i kvalitet:
 
-- Funkcionalnost je adekvatno testirana (prateći definisanu testnu strategiju)
-- Pokriveni su edge case-ovi (neispravni unosi, prazna polja, neautorizovan pristup)
-- Provedeno je regresijsko testiranje — da nova funkcionalnost nije pokvarila postojeću
+- Unit testovi su napisani za sve nove metode i logičke jedinice, te svi testovi prolaze sa 100% uspjehom
+- Integracijski testovi su napisani za sve nove API endpoint-e i svi testovi prolaze
+- Pokrivenost koda (Code Coverage) je mjerena, testovi su napisani da pokriju minimalno 80% linija koda
+- Regresijski testovi su napisani (ili ažurirani) i svi prolaze kako bi se potvrdilo da nova funkcionalnost nije narušila postojeći sistem
+- Testovi za rubne slučajeve (Edge Cases) su napisani za neispravne unose i prazna polja, te svi prolaze sa očekivanim porukama o greški
 
 ### Kod i pregled:
 
@@ -34,4 +36,4 @@ Stavka je **Done** isključivo kada su **svi** sljedeći kriteriji u potpunosti 
 
 - Promjene su evidentirane u relevantnim projektnim artefaktima
 - Funkcionalnost je spremna za demonstraciju u sprint review-u
-- Product Owner potvrđuje da je User Story završen
+- API dokumentacija: Ako postoje novi endpointi, oni su dokumentovani
