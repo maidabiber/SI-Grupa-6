@@ -28,6 +28,13 @@ model Korisnik {
   brojPreksrenihRezervacija  Int       @default(0)
   statusPouzdanosti          String?
   uloga          Uloga    @default(NAVIJAC)
+  trazenaUloga               Uloga?
+  statusUloge                String?
+  datumZahtjeva              DateTime?
+  datumObrade                DateTime?
+  razlogOdbijanja            String?
+  refreshToken               String?
+  documents                  String[]
 
   // Relacije
   organizovanaTakmicenja     Takmicenje[]
