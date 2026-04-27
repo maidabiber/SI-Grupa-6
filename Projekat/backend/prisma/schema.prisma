@@ -88,6 +88,8 @@ model ClanstvoTima {
   ulogaUTimu         String?
   datumPridruzivanja DateTime @default(now())
   status             String?
+
+  @@unique([korisnikId,timId])
 }
 
 model OmiljeniTim {
@@ -98,6 +100,8 @@ model OmiljeniTim {
   tim              Tim      @relation(fields: [timId], references: [timId])
   datumDodavanja   DateTime @default(now())
   napomenaKorisnika String?
+
+  @@unique([korisnikId,timId])
 }
 
 // ==========================================
@@ -158,7 +162,7 @@ model RezultatUtakmice {
 
 model PlasmanNaTabeli {
   plasmanNaTabeliId Int        @id @default(autoincrement())
-  timId             Int
+  timId             Int        
   tim               Tim        @relation(fields: [timId], references: [timId])
   takmicenjeId      Int
   takmicenje        Takmicenje @relation(fields: [takmicenjeId], references: [takmicenjeId])
@@ -167,6 +171,8 @@ model PlasmanNaTabeli {
   brojPoraza        Int        @default(0)
   ukupniBodovi      Int        @default(0)
   trenutnaPozicija  Int?
+
+  @@unique([timId, takmicenjeId])
 }
 
 model UcesceUTakmicenju {
